@@ -1,4 +1,4 @@
-vimcnf
-======
+dotfiles
+========
 
-my vim plugins and cnf
+my config files

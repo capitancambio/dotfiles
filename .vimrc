@@ -8,6 +8,9 @@ map <Leader>mc : s/^\(\s*\)/\1%/g<CR>
 inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
 " python
 map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
+"google wiki
+au BufEnter *.wiki set ft=googlecodewiki
+au BufEnter *.wiki set spell
 
 
 " START LATEX STUFF "

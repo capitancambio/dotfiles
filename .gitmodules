@@ -25,3 +25,6 @@
 [submodule "_vim/bundle/vim-latex"]
 	path = _vim/bundle/vim-latex
 	url = git://github.com/jcf/vim-latex.git
+[submodule "_vim/bundle/syntastic"]
+	path = _vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git

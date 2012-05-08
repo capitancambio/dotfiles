@@ -6,7 +6,8 @@ let mapleader = ","
 " matlab  comments keeping indent
 map <Leader>mc : s/^\(\s*\)/\1%/g<CR>
 inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
-
+" python
+map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
 
 
 " START LATEX STUFF "

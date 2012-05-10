@@ -1,13 +1,33 @@
 call pathogen#infect()
 filetype on
-map B \be
+
+"Varios sets
+set nocompatible
+set autoindent
+set ruler
+set showcmd
+"relative line number 
+set relativenumber
+"persistent undos
+set undofile
+set showmatch
+
 abb trail trial
 let mapleader = ","
 " matlab  comments keeping indent
 map <Leader>mc : s/^\(\s*\)/\1%/g<CR>
+map B \be
 inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
 " python
 map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
+
+
+" syntastic
+let g:syntastic_mode_map = { 'mode': 'active',
+                               \ 'active_filetypes': ['python']  }
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 "google wiki
 au BufEnter *.wiki set ft=googlecodewiki
 au BufEnter *.wiki set spell
@@ -17,6 +37,8 @@ au BufEnter *.wiki set spell
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 filetype plugin on
 
+
+au BufEnter *.tex set spell
 
 " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
 " can be called correctly.

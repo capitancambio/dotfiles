@@ -12,6 +12,26 @@ set relativenumber
 set undofile
 set showmatch
 
+
+" bucket list: just use  hkjl to move
+"
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+
+"moving around windows 
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 abb trail trial
 let mapleader = ","
 " matlab  comments keeping indent

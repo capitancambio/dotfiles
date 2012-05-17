@@ -1,6 +1,7 @@
 call pathogen#infect()
 filetype on
 
+colorscheme 256_jungle
 "Varios sets
 set nocompatible
 set autoindent

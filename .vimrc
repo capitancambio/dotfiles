@@ -1,8 +1,32 @@
-call pathogen#infect()
-filetype on
+set nocompatible               " be iMproved
+filetype off                   " required!
 
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'garbas/vim-snipmate'
+"snipmate deps
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle "tomtom/tlib_vim"
+Bundle "snipmate-snippets"
+
+Bundle "tpope/vim-surround"
+Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
+Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'fholgado/minibufexpl.vim'
+Bundle 'sontek/rope-vim'
+
+filetype plugin indent on     " required!
+
+filetype on
+filetype plugin on
 colorscheme 256_jungle
-"Varios sets
+"Various sets
 set nocompatible
 set autoindent
 set ruler
@@ -12,7 +36,7 @@ set relativenumber
 "persistent undos
 set undofile
 set showmatch
-
+set foldmethod=indent
 
 " bucket list: just use  hkjl to move
 "
@@ -33,6 +57,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+
+
 abb trail trial
 let mapleader = ","
 " matlab  comments keeping indent
@@ -44,19 +70,16 @@ map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
 
 
 " syntastic
-let g:syntastic_mode_map = { 'mode': 'active',
-                               \ 'active_filetypes': ['python']  }
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+let g:syntastic_mode_map = { 'mode': 'active','active_filetypes': ['python']  }
+set statusline=%t\ %#warningmsg#%{SyntasticStatuslineFlag()}%*\ %r%m\ [%l/%L]%=%Y
 "google wiki
 au BufEnter *.wiki set ft=googlecodewiki
 au BufEnter *.wiki set spell
-
-
+" rope 
+let ropevim_enable_autoimport=1
+let g:ropevim_autoimport_modules = ["unittest", "numpy","logging","threading"]
 " START LATEX STUFF "
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
-filetype plugin on
 
 
 au BufEnter *.tex set spell

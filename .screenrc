@@ -24,5 +24,8 @@ hardstatus on
 hardstatus alwayslastline 
 hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %d/%m %C%a "
 activity "Activity in %t(%n)"
-
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+defbce "on" 
+term "screen-256color-bce"
 shelltitle "shell"

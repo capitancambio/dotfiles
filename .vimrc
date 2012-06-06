@@ -37,11 +37,10 @@ set relativenumber
 set undofile
 set showmatch
 set foldmethod=indent
-
 " bucket list: just use  hkjl to move
 "
-nnoremap <up> <nop>
-nnoremap <down> <nop>
+nnoremap <up> <C-a>
+nnoremap <down> <C-x>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 inoremap <up> <nop>

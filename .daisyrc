@@ -1,0 +1,42 @@
+# ~/.screenrc startup file for GNU Screen.
+#
+# Steve
+# --
+# $Id: _screenrc,v 1.4 2005/11/20 21:00:35 steve Exp $
+#
+
+# skip the startup message
+startup_message off
+
+# Automatically detach on hangup.
+autodetach on
+
+# Change default scrollback value for new windows
+defscrollback 1000
+
+# start with visual bell as default
+vbell on
+vbell_msg "bell on %t (%n)"
+
+# look and feel
+hardstatus on
+hardstatus alwayslastline 
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %d/%m %C%a "
+activity "Activity in %t(%n)"
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+defbce "on" 
+term "screen-256color-bce"
+shelltitle "shell"
+chdir ~/daisy/daisy-pipeline
+screen -t mvn 0
+chdir ~/daisy/daisy-pipeline/
+screen -t poms 1 vim -O pom.xml ../pipeline-assembly/pom.xml 
+chdir ~/daisy/pipeline-assembly
+screen -t pipeline 2
+chdir ~/daisy/pipeline-cli/
+screen -t cli 3
+chdir ~/daisy/pipeline-cli/
+screen -t cli-code 4
+chdir ~/daisy/daisy-pipeline/
+screen -t java-code 5

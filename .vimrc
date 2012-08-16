@@ -14,7 +14,7 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle "tomtom/tlib_vim"
 Bundle "snipmate-snippets"
-
+Bundle "godlygeek/tabular"
 Bundle "tpope/vim-surround"
 Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
 Bundle 'git://git.wincent.com/command-t.git'
@@ -35,6 +35,10 @@ set showcmd
 set relativenumber
 "persistent undos
 set undofile
+if isdirectory($HOME . '/.vim/undo') == 0
+    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+  endif
+set undodir=~/.vim/undo
 set showmatch
 set foldmethod=indent
 " bucket list: just use  hkjl to move
@@ -106,3 +110,9 @@ let g:Tex_ViewRule_pdf='evince'
 let g:Tex_DefaultTargetFormat='pdf'
 let g:Tex_MultipleCompileFormats='pdf'
 " END LATEX STUFF "
+"
+"
+"Maven
+nmap <F5> :Mvn clean install<CR>
+nmap <F6> :Mvn clean package<CR>
+

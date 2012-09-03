@@ -26,6 +26,9 @@ filetype plugin indent on     " required!
 filetype on
 filetype plugin on
 colorscheme 256_jungle
+"syntax on
+syntax on
+set backspace=2
 "Various sets
 set nocompatible
 set autoindent
@@ -41,6 +44,7 @@ if isdirectory($HOME . '/.vim/undo') == 0
 set undodir=~/.vim/undo
 set showmatch
 set foldmethod=indent
+set foldlevel=10
 " bucket list: just use  hkjl to move
 "
 nnoremap <up> <C-a>

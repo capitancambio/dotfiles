@@ -20,6 +20,8 @@ Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
 Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'sontek/rope-vim'
+Bundle 'tpope/vim-fugitive.git'
+Bundle 'sjl/gundo.vim'
 
 filetype plugin indent on     " required!
 
@@ -59,7 +61,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
+imap jj <esc>
 
 
 abb trail trial

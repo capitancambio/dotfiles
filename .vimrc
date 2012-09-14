@@ -66,7 +66,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 imap jj <esc>
-
+"gundo
+"
+map <Leader>u <Esc> : GundoToggle<CR>
 
 abb trail trial
 let mapleader = ","
@@ -76,10 +78,12 @@ map B \be
 inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
 " python
 map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
+map <leader>gs : Gstatus<CR>
+map <leader>gc : Gcommit<CR>
 
 
 " syntastic
-let g:syntastic_mode_map = { 'mode': 'active','active_filetypes': ['python']  }
+"let g:syntastic_mode_map = { 'mode': 'active','active_filetypes': ['python']  }
 set statusline=%t\ %#warningmsg#%{SyntasticStatuslineFlag()}%*\ %r%m\ [%l/%L]%=%Y
 "google wiki
 au BufEnter *.wiki set ft=googlecodewiki

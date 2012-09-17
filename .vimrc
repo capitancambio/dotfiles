@@ -21,6 +21,7 @@ Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'sontek/rope-vim'
 
+Bundle 'kien/rainbow_parentheses.vim'
 filetype plugin indent on     " required!
 
 filetype on
@@ -85,6 +86,30 @@ au BufEnter *.wiki set spell
 " rope 
 let ropevim_enable_autoimport=1
 let g:ropevim_autoimport_modules = ["unittest", "numpy","logging","threading"]
+""Rainbow parenthesis conf
+let g:rbpt_colorpairs = [
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'RoyalBlue3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['red',         'firebrick3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ]
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 " START LATEX STUFF "
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 

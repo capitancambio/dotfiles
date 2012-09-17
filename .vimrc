@@ -20,6 +20,9 @@ Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
 Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'sontek/rope-vim'
+Bundle 'tpope/vim-fugitive.git'
+Bundle 'sjl/gundo.vim'
+Bundle 'vim-scripts/SwapIt'
 
 Bundle 'kien/rainbow_parentheses.vim'
 filetype plugin indent on     " required!
@@ -52,8 +55,8 @@ nnoremap <up> <C-a>
 nnoremap <down> <C-x>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
+inoremap <up> <C-a> 
+inoremap <down> <C-x>
 inoremap <left> <nop>
 inoremap <right> <nop>
 nnoremap j gj
@@ -64,8 +67,10 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-
+imap jj <esc>
+"gundo
+"
+map <Leader>u : GundoToggle<CR>
 
 abb trail trial
 let mapleader = ","
@@ -75,10 +80,12 @@ map B \be
 inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
 " python
 map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
+map <leader>gs : Gstatus<CR>
+map <leader>gc : Gcommit<CR>
 
 
 " syntastic
-let g:syntastic_mode_map = { 'mode': 'active','active_filetypes': ['python']  }
+"let g:syntastic_mode_map = { 'mode': 'active','active_filetypes': ['python']  }
 set statusline=%t\ %#warningmsg#%{SyntasticStatuslineFlag()}%*\ %r%m\ [%l/%L]%=%Y
 "google wiki
 au BufEnter *.wiki set ft=googlecodewiki

@@ -22,6 +22,7 @@ Bundle 'fholgado/minibufexpl.vim'
 Bundle 'sontek/rope-vim'
 Bundle 'tpope/vim-fugitive.git'
 Bundle 'sjl/gundo.vim'
+Bundle 'vim-scripts/SwapIt'
 
 filetype plugin indent on     " required!
 
@@ -53,8 +54,8 @@ nnoremap <up> <C-a>
 nnoremap <down> <C-x>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
+inoremap <up> <C-a> 
+inoremap <down> <C-x>
 inoremap <left> <nop>
 inoremap <right> <nop>
 nnoremap j gj
@@ -68,7 +69,7 @@ nnoremap <C-l> <C-w>l
 imap jj <esc>
 "gundo
 "
-map <Leader>u <Esc> : GundoToggle<CR>
+map <Leader>u : GundoToggle<CR>
 
 abb trail trial
 let mapleader = ","

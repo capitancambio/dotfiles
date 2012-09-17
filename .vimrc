@@ -3,7 +3,6 @@ filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
 "other syntax plugin files etc from dotfiles
-set rtp+=~/dotfiles/_vim/
 call vundle#rc()
 set rtp+=~/dotfiles/_vim/
 set rtp+=~/dotfiles/_vim/bundle/snipmate-snippets/

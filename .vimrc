@@ -3,6 +3,8 @@ filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+set rtp+=~/dotfiles/_vim/
+set rtp+=~/dotfiles/_vim/bundle/snipmate-snippets/
 
 " let Vundle manage Vundle
 " required! 
@@ -23,8 +25,8 @@ Bundle 'sontek/rope-vim'
 Bundle 'tpope/vim-fugitive.git'
 Bundle 'sjl/gundo.vim'
 Bundle 'vim-scripts/SwapIt'
-
 Bundle 'kien/rainbow_parentheses.vim'
+
 filetype plugin indent on     " required!
 
 filetype on

@@ -26,7 +26,12 @@ Bundle 'sontek/rope-vim'
 Bundle 'tpope/vim-fugitive.git'
 Bundle 'sjl/gundo.vim'
 Bundle 'vim-scripts/SwapIt'
-Bundle 'kien/rainbow_parentheses.vim'
+"Time management 
+Bundle 'vim-scripts/vimwiki'
+Bundle 'vim-scripts/utl.vim'
+Bundle 'xolox/vim-notes'
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/googletasks-vim'
 
 filetype plugin indent on     " required!
 
@@ -85,40 +90,33 @@ inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
 map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
 map <leader>gs : Gstatus<CR>
 map <leader>gc : Gcommit<CR>
+"Utl
+map <leader>o : Utl ol<CR>
 
+"Notes
+let g:notes_directory = '~/Dropbox/notes'
+"Wiki
 
+let wiki_daisy = {}
+let wiki_daisy.path = '~/Dropbox/wiki/daisy'
+
+let wiki_phd = {}
+let wiki_phd.path = '~/Dropbox/wiki/daisy'
+let wiki_phd.index = 'main'
+
+let g:vimwiki_list = [wiki_daisy, wiki_phd]
 " syntastic
 "let g:syntastic_mode_map = { 'mode': 'active','active_filetypes': ['python']  }
 set statusline=%t\ %#warningmsg#%{SyntasticStatuslineFlag()}%*\ %r%m\ [%l/%L]%=%Y
+
+"minibufexpl conflict with fugitive
+let g:miniBufExplorerMoreThanOne=3
 "google wiki
 au BufEnter *.wiki set ft=googlecodewiki
 au BufEnter *.wiki set spell
 " rope 
 let ropevim_enable_autoimport=1
 let g:ropevim_autoimport_modules = ["unittest", "numpy","logging","threading"]
-""Rainbow parenthesis conf
-let g:rbpt_colorpairs = [
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'RoyalBlue3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['red',         'firebrick3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ]
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
 
 " START LATEX STUFF "
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.

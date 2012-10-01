@@ -31,8 +31,9 @@ Bundle 'vim-scripts/vimwiki'
 Bundle 'vim-scripts/utl.vim'
 Bundle 'xolox/vim-notes'
 Bundle 'mattn/webapi-vim'
-Bundle 'mattn/googletasks-vim'
-
+"Bundle 'mattn/googletasks-vim'
+"tagbar
+Bundle 'majutsushi/tagbar'
 filetype plugin indent on     " required!
 
 filetype on
@@ -76,18 +77,22 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 imap jj <esc>
+
+let mapleader = ","
 "gundo
 "
 map <Leader>u : GundoToggle<CR>
+"tabbar
+map <Leader>tb : TagbarToggle<CR>
+let g:tagbar_autofocus=1
+let g:tagbar_autoclose=1
 
 abb trail trial
-let mapleader = ","
 " matlab  comments keeping indent
 map <Leader>mc : s/^\(\s*\)/\1%/g<CR>
-map B \be
-inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
 " python
 map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
+"fugitive
 map <leader>gs : Gstatus<CR>
 map <leader>gc : Gcommit<CR>
 "Utl

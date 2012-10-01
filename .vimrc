@@ -26,6 +26,7 @@ Bundle 'sontek/rope-vim'
 Bundle 'tpope/vim-fugitive.git'
 Bundle 'sjl/gundo.vim'
 Bundle 'vim-scripts/SwapIt'
+
 "Time management 
 Bundle 'vim-scripts/vimwiki'
 Bundle 'vim-scripts/utl.vim'
@@ -57,6 +58,13 @@ set undodir=~/.vim/undo
 set showmatch
 set foldmethod=indent
 set foldlevel=10
+set laststatus=2   " Always show the statusline
+set encoding=utf-8 " Necessary to show Unicode glyphs
+set hlsearch
+set suffixesadd+=.m
+set suffixesadd+=.rb
+set suffixesadd+=.py
+set suffixesadd+=.java
 " bucket list: just use  hkjl to move
 "
 nnoremap <up> <C-a>
@@ -75,16 +83,17 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-imap jj <esc>
+inoremap jj <Esc>
+inoremap ;; <Esc>
 "gundo
 "
 map <Leader>u : GundoToggle<CR>
 
 abb trail trial
 let mapleader = ","
+noremap \ ,
 " matlab  comments keeping indent
 map <Leader>mc : s/^\(\s*\)/\1%/g<CR>
-map B \be
 inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
 " python
 map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
@@ -111,6 +120,7 @@ set statusline=%t\ %#warningmsg#%{SyntasticStatuslineFlag()}%*\ %r%m\ [%l/%L]%=%
 
 "minibufexpl conflict with fugitive
 let g:miniBufExplorerMoreThanOne=3
+let g:miniBufExplMapCTabSwitchBufs = 1
 "google wiki
 au BufEnter *.wiki set ft=googlecodewiki
 au BufEnter *.wiki set spell

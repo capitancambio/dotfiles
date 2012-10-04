@@ -85,18 +85,16 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-inoremap ;; <Esc>
-inoremap jk <Esc>
-inoremap <Esc> <nop>
-
+inoremap ;; <Esc>:w<CR>
+nnoremap ;; <Esc>:w<CR>
+inoremap <Esc> <nop> 
 let mapleader = ","
+noremap \ ,
 
 "gundo
 "
-map <Leader>u : GundoToggle<CR>
-noremap \ ,
-"tabbar
-map <Leader>tb : TagbarToggle<CR>
+noremap <Leader>u : GundoToggle<CR>
+noremap <Leader>tb : TagbarToggle<CR>
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
 
@@ -133,10 +131,11 @@ let g:notes_directory = '~/Dropbox/notes'
 
 let wiki_daisy = {}
 let wiki_daisy.path = '~/Dropbox/wiki/daisy'
-
-let wiki_phd = {}
+nnoremap <leader>wd :execute "normal <leader>ww"<cr>
+let wiki_phd= {}
 let wiki_phd.path = '~/Dropbox/wiki/daisy'
 let wiki_phd.index = 'main'
+nnoremap <leader>wp :execute "normal 2<leader>ww"<cr>
 
 let g:vimwiki_list = [wiki_daisy, wiki_phd]
 " syntastic

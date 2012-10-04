@@ -26,7 +26,8 @@ Bundle 'sontek/rope-vim'
 Bundle 'tpope/vim-fugitive.git'
 Bundle 'sjl/gundo.vim'
 Bundle 'vim-scripts/SwapIt'
-
+"Matlab
+Bundle 'vim-scripts/MatlabFilesEdition'
 "Time management 
 Bundle 'vim-scripts/vimwiki'
 Bundle 'vim-scripts/utl.vim'
@@ -36,7 +37,7 @@ Bundle 'mattn/webapi-vim'
 "tagbar
 Bundle 'majutsushi/tagbar'
 filetype plugin indent on     " required!
-
+"let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
 filetype on
 filetype plugin on
 colorscheme 256_jungle
@@ -85,9 +86,11 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 inoremap ;; <Esc>
-imap jj <Esc>
+inoremap jk <Esc>
+inoremap <Esc> <nop>
 
 let mapleader = ","
+
 "gundo
 "
 map <Leader>u : GundoToggle<CR>
@@ -97,10 +100,14 @@ map <Leader>tb : TagbarToggle<CR>
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
 
+"Other maps
+inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
+noremap <leader>s : source %<CR>
+nnoremap vs : vs<CR>
+nnoremap sp : sp<CR>
 abb trail trial
 " matlab  comments keeping indent
 map <Leader>mc : s/^\(\s*\)/\1%/g<CR>
-inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
 " python
 map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
 "fugitive
@@ -108,7 +115,6 @@ map <leader>gs : Gstatus<CR>
 map <leader>gc : Gcommit<CR>
 "Utl
 map <leader>o : Utl ol<CR>
-
 "Notes
 let g:notes_directory = '~/Dropbox/notes'
 "Wiki

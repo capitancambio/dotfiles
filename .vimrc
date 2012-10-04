@@ -106,15 +106,27 @@ noremap <leader>s : source %<CR>
 nnoremap vs : vs<CR>
 nnoremap sp : sp<CR>
 abb trail trial
-" matlab  comments keeping indent
-map <Leader>mc : s/^\(\s*\)/\1%/g<CR>
-" python
-map <Leader>pc : s/^\(\s*\)/\1#/g<CR>
+"comment autocommand
+augroup filetype_matlab
+	au!
+	au FileType matlab nnoremap <buffer> <Leader>c : s/^\(\s*\)/\1%/g<CR>
+	au FileType matlab nnoremap <buffer> <Leader>uc : s/^%//g<CR>
+augroup END
+augroup filetype_python
+	au!
+	au FileType python nnoremap <buffer> <Leader>c : s/^\(\s*\)/\1#/g<CR>
+	au FileType python nnoremap <buffer> <Leader>uc : s/^#//g<CR>
+augroup END
+augroup filetype_java
+	au!
+	au FileType java nnoremap <buffer> <Leader>c : s/^\(\s*\)/\1\/\//g<CR>
+	au FileType java  nnoremap <buffer> <Leader>uc : s/^\/\///g<CR>
+augroup END
 "fugitive
-map <leader>gs : Gstatus<CR>
-map <leader>gc : Gcommit<CR>
+nnoremap <leader>gs : Gstatus<CR>
+nnoremap <leader>gc : Gcommit<CR>
 "Utl
-map <leader>o : Utl ol<CR>
+nnoremap <leader>o : Utl ol<CR>
 "Notes
 let g:notes_directory = '~/Dropbox/notes'
 "Wiki

@@ -85,15 +85,17 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-inoremap ;; <Esc>:w<CR>
-nnoremap ;; <Esc>:w<CR>
+"my own private escape
+inoremap ;; <Esc>
 inoremap <Esc> <nop> 
+
 let mapleader = ","
 noremap \ ,
 
 "gundo
 "
 noremap <Leader>u : GundoToggle<CR>
+"Tagbar
 noremap <Leader>tb : TagbarToggle<CR>
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
@@ -101,8 +103,14 @@ let g:tagbar_autoclose=1
 "Other maps
 inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
 noremap <leader>s : source %<CR>
+"splits
 nnoremap vs : vs<CR>
 nnoremap sp : sp<CR>
+"jump to buff
+nnoremap <leader><leader> :<c-u>exe "b ".v:count<cr>
+"save
+nnoremap <leader>w :w<cr>
+
 abb trail trial
 "comment autocommand
 augroup filetype_matlab

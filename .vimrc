@@ -86,8 +86,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 "my own private escape
-inoremap ;; <Esc>
-inoremap <Esc> <nop> 
+inoremap jk <Esc>
 
 let mapleader = ","
 noremap \ ,
@@ -127,6 +126,12 @@ augroup filetype_java
 	au!
 	au FileType java nnoremap <buffer> <Leader>c : s/^\(\s*\)/\1\/\//g<CR>
 	au FileType java  nnoremap <buffer> <Leader>uc : s/^\/\///g<CR>
+	""eclim maps
+	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
+	au FileType java nnoremap <buffer> <Leader>ci :JavaImportClean<CR>
+	au FileType java nnoremap <buffer> <Leader>G :JavaSet<CR>
+	au FileType java nnoremap <buffer> <Leader>GS :JavaSetGet<CR>
+	au FileType java nnoremap <buffer> <Leader>c :JavaCorrect<CR>
 augroup END
 "fugitive
 nnoremap <leader>gs : Gstatus<CR>
@@ -151,7 +156,7 @@ let g:vimwiki_list = [wiki_daisy, wiki_phd]
 set statusline=%t\ %#warningmsg#%{SyntasticStatuslineFlag()}%*\ %r%m\ [%l/%L]%=%Y
 
 "minibufexpl conflict with fugitive
-let g:miniBufExplorerMoreThanOne=3
+let g:miniBufExplorerMoreThanOne=2
 let g:miniBufExplMapCTabSwitchBufs = 1
 "google wiki
 au BufEnter *.wiki set ft=googlecodewiki

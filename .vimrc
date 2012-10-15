@@ -114,24 +114,26 @@ abb trail trial
 "comment autocommand
 augroup filetype_matlab
 	au!
-	au FileType matlab nnoremap <buffer> <Leader>c : s/^\(\s*\)/\1%/g<CR>
+	au FileType matlab nnoremap <buffer> <Leader>C : s/^\(\s*\)/\1%/g<CR>
 	au FileType matlab nnoremap <buffer> <Leader>uc : s/^%//g<CR>
 augroup END
 augroup filetype_python
 	au!
-	au FileType python nnoremap <buffer> <Leader>c : s/^\(\s*\)/\1#/g<CR>
+	au FileType python nnoremap <buffer> <Leader>C : s/^\(\s*\)/\1#/g<CR>
 	au FileType python nnoremap <buffer> <Leader>uc : s/^#//g<CR>
 augroup END
 augroup filetype_java
 	au!
-	au FileType java nnoremap <buffer> <Leader>c : s/^\(\s*\)/\1\/\//g<CR>
+	au FileType java nnoremap <buffer> <Leader>C :s/^\(\s*\)/\1\/\//g<CR>
+	au FileType java vnoremap <buffer> <Leader>C :s/^\(\s*\)/\1\/\//g<CR>
 	au FileType java  nnoremap <buffer> <Leader>uc : s/^\/\///g<CR>
 	""eclim maps
 	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
 	au FileType java nnoremap <buffer> <Leader>ci :JavaImportClean<CR>
 	au FileType java nnoremap <buffer> <Leader>G :JavaSet<CR>
 	au FileType java nnoremap <buffer> <Leader>GS :JavaSetGet<CR>
-	au FileType java nnoremap <buffer> <Leader>c :JavaCorrect<CR>
+	au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
+	au FileType java nnoremap <buffer> <Leader>j :Java<CR>
 augroup END
 "fugitive
 nnoremap <leader>gs : Gstatus<CR>
@@ -146,8 +148,7 @@ let wiki_daisy = {}
 let wiki_daisy.path = '~/Dropbox/wiki/daisy'
 nnoremap <leader>wd :execute "normal <leader>ww"<cr>
 let wiki_phd= {}
-let wiki_phd.path = '~/Dropbox/wiki/daisy'
-let wiki_phd.index = 'main'
+let wiki_phd.path = '~/Dropbox/wiki/phd'
 nnoremap <leader>wp :execute "normal 2<leader>ww"<cr>
 
 let g:vimwiki_list = [wiki_daisy, wiki_phd]

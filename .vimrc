@@ -5,35 +5,34 @@ set rtp+=~/.vim/bundle/vundle/
 "other syntax plugin files etc from dotfiles
 call vundle#rc()
 set rtp+=~/dotfiles/_vim/
-set rtp+=~/dotfiles/_vim/bundle/snipmate-snippets/
 
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-Bundle 'garbas/vim-snipmate'
+"Bundle 'garbas/vim-snipmate'
 "snipmate deps
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle "tomtom/tlib_vim"
-Bundle "snipmate-snippets"
+"Bundle "snipmate-snippets"
+Bundle "vim-scripts/UltiSnips"
 Bundle "godlygeek/tabular"
 Bundle "tpope/vim-surround"
 Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
 Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'sontek/rope-vim'
-Bundle 'tpope/vim-fugitive.git'
+Bundle 'tpope/vim-fugitive'
 Bundle 'sjl/gundo.vim'
-Bundle 'vim-scripts/SwapIt'
+Bundle 'tpope/vim-eunuch'
+Bundle 'scrooloose/nerdcommenter'
 "Matlab
 Bundle 'vim-scripts/MatlabFilesEdition'
 "Time management 
 Bundle 'vim-scripts/vimwiki'
 Bundle 'vim-scripts/utl.vim'
 Bundle 'xolox/vim-notes'
-Bundle 'mattn/webapi-vim'
-"Bundle 'mattn/googletasks-vim'
 "tagbar
 Bundle 'majutsushi/tagbar'
 filetype plugin indent on     " required!
@@ -98,6 +97,9 @@ noremap <Leader>u : GundoToggle<CR>
 noremap <Leader>tb : TagbarToggle<CR>
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
+"Ultisnippets
+let g:UltiSnipsSnippetsDir="~/dotfiles/_vim/ultisnippets/"
+let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
 
 "Other maps
 inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
@@ -111,29 +113,17 @@ nnoremap <leader><leader> :<c-u>exe "b ".v:count<cr>
 nnoremap <leader>w :w<cr>
 
 abb trail trial
-"comment autocommand
-augroup filetype_matlab
-	au!
-	au FileType matlab nnoremap <buffer> <Leader>C : s/^\(\s*\)/\1%/g<CR>
-	au FileType matlab nnoremap <buffer> <Leader>uc : s/^%//g<CR>
-augroup END
-augroup filetype_python
-	au!
-	au FileType python nnoremap <buffer> <Leader>C : s/^\(\s*\)/\1#/g<CR>
-	au FileType python nnoremap <buffer> <Leader>uc : s/^#//g<CR>
-augroup END
 augroup filetype_java
 	au!
-	au FileType java nnoremap <buffer> <Leader>C :s/^\(\s*\)/\1\/\//g<CR>
-	au FileType java vnoremap <buffer> <Leader>C :s/^\(\s*\)/\1\/\//g<CR>
-	au FileType java  nnoremap <buffer> <Leader>uc : s/^\/\///g<CR>
 	""eclim maps
 	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
 	au FileType java nnoremap <buffer> <Leader>ci :JavaImportClean<CR>
-	au FileType java nnoremap <buffer> <Leader>G :JavaSet<CR>
+	au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
 	au FileType java nnoremap <buffer> <Leader>GS :JavaSetGet<CR>
 	au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
 	au FileType java nnoremap <buffer> <Leader>j :Java<CR>
+	au FileType java nnoremap <buffer> <Leader>ju :JUnitExecute<CR>
+	au FileType java nnoremap <buffer> <Leader>jur :JUnitResult<CR>
 augroup END
 "fugitive
 nnoremap <leader>gs : Gstatus<CR>
@@ -200,4 +190,3 @@ let g:Tex_MultipleCompileFormats='pdf'
 "Maven
 nmap <F5> :Mvn clean install<CR>
 nmap <F6> :Mvn clean package<CR>
-

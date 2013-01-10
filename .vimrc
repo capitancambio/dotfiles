@@ -2,9 +2,10 @@ set nocompatible               " be iMproved
 filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/dotfiles/_vim/
+set rtp+=~/dotfiles/_vim/plugins/
 "other syntax plugin files etc from dotfiles
 call vundle#rc()
-set rtp+=~/dotfiles/_vim/
 
 " let Vundle manage Vundle
 " required! 
@@ -190,3 +191,16 @@ let g:Tex_MultipleCompileFormats='pdf'
 "Maven
 nmap <F5> :Mvn clean install<CR>
 nmap <F6> :Mvn clean package<CR>
+
+if !exists(':JUnitCreate')
+  command! JUnitCreate call CreateJUnit()
+endif
+
+""My functions 
+fun! CreateJUnit()
+
+	let testFile=substitute(expand('%:p'),'\/src\/main','\/src\/test','')
+	let testFile=substitute(testFile,'\.java','Test.java','')
+	silent! exec ":!mkdir -p ". fnamemodify(testFile,':p:h:')
+	exec ":e ".testFile
+endf

@@ -25,6 +25,8 @@ Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'sontek/rope-vim'
 Bundle 'tpope/vim-fugitive'
+""" like fugitive but for mercurial
+Bundle 'ludovicchabant/vim-lawrencium'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-eunuch'
 Bundle 'scrooloose/nerdcommenter'
@@ -120,7 +122,7 @@ augroup filetype_java
 	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
 	au FileType java nnoremap <buffer> <Leader>ci :JavaImportClean<CR>
 	au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
-	au FileType java nnoremap <buffer> <Leader>GS :JavaSetGet<CR>
+	au FileType java nnoremap <buffer> <Leader>GS :JavaGetSet<CR>
 	au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
 	au FileType java nnoremap <buffer> <Leader>j :Java<CR>
 	au FileType java nnoremap <buffer> <Leader>ju :JUnitExecute<CR>

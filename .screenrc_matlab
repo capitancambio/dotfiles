@@ -28,7 +28,7 @@ termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 defbce "on" 
 term "screen-256color-bce"
 shelltitle "shell"
-screen -t matlab 0 matlab
+screen -t matlab 0 matlab -nodesktop
 chdir ~/Dropbox/uni/src/matlab/ng/
 screen -t code 1 
 chdir ~/Dropbox/uni/src/matlab/ng/

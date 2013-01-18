@@ -10,32 +10,43 @@ call vundle#rc()
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
+"Nicer view of the fs
 Bundle 'scrooloose/nerdtree'
+"Universal syntax checker
 Bundle 'scrooloose/syntastic'
-"Bundle 'garbas/vim-snipmate'
-"snipmate deps
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle "tomtom/tlib_vim"
-"Bundle "snipmate-snippets"
+"snippets
 Bundle "vim-scripts/UltiSnips"
+" Beautify tables
 Bundle "godlygeek/tabular"
+"surround utilities
 Bundle "tpope/vim-surround"
+"amazing latex plugin
 Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
+"fuzzy file finder
 Bundle 'git://git.wincent.com/command-t.git'
+"shows the open buffers in a minibuffer
 Bundle 'fholgado/minibufexpl.vim'
+"pytohn utilities
 Bundle 'sontek/rope-vim'
+"git bindings 
 Bundle 'tpope/vim-fugitive'
+"undo tree
 Bundle 'sjl/gundo.vim'
+"unix commands from vim
 Bundle 'tpope/vim-eunuch'
+"simple comment and uncomment utility
 Bundle 'scrooloose/nerdcommenter'
 "Matlab
 Bundle 'vim-scripts/MatlabFilesEdition'
 "Time management 
 Bundle 'vim-scripts/vimwiki'
-Bundle 'vim-scripts/utl.vim'
 Bundle 'xolox/vim-notes'
-"tagbar
+"opens urls and more from vi
+Bundle 'vim-scripts/utl.vim'
+"tagbar file skeleton 
 Bundle 'majutsushi/tagbar'
+"Databases
+Bundle 'vim-scripts/dbext.vim'
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
 filetype on
@@ -118,7 +129,7 @@ augroup filetype_java
 	au!
 	""eclim maps
 	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
-	au FileType java nnoremap <buffer> <Leader>ci :JavaImportClean<CR>
+	au FileType java nnoremap <buffer> <Leader>ic :JavaImportClean<CR>
 	au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
 	au FileType java nnoremap <buffer> <Leader>GS :JavaSetGet<CR>
 	au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
@@ -134,6 +145,10 @@ nnoremap <leader>o : Utl ol<CR>
 "Notes
 let g:notes_directory = '~/Dropbox/notes'
 "Wiki
+
+"dbext configuration
+let g:dbext_default_profile_ldb_paper= 'type=SQLITE:dbname=/home/javi/Dropbox/uni/src/python/results/ldb_sets/sets.db'
+let dbext_default_SQLITE_bin = 'sqlite3'
 
 let wiki_daisy = {}
 let wiki_daisy.path = '~/Dropbox/wiki/daisy'

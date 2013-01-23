@@ -183,7 +183,7 @@ let g:beauty_matlab_greek=1
 
 "matlab conceal
 au BufEnter *.m set conceallevel=2
-au BufEnter *.m set concealcursor=nc
+au BufEnter *.m set concealcursor=
 
 " START LATEX STUFF "
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.

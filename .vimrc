@@ -3,6 +3,7 @@ filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
 set rtp+=~/dotfiles/_vim/
+set rtp+=~/dotfiles/_vim/after/
 set rtp+=~/dotfiles/_vim/plugins/
 "other syntax plugin files etc from dotfiles
 call vundle#rc()
@@ -47,6 +48,11 @@ Bundle 'vim-scripts/utl.vim'
 Bundle 'majutsushi/tagbar'
 "Databases
 Bundle 'vim-scripts/dbext.vim'
+
+
+"Pomodoro 
+"Bundle 'pydave/AsyncCommand'
+"Bundle 'mnick/vim-pomodoro'
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
 filetype on
@@ -171,6 +177,13 @@ au BufEnter *.wiki set spell
 " rope 
 let ropevim_enable_autoimport=1
 let g:ropevim_autoimport_modules = ["unittest", "numpy","logging","threading"]
+
+"beauty_matlab conf
+let g:beauty_matlab_greek=1
+
+"matlab conceal
+au BufEnter *.m set conceallevel=2
+au BufEnter *.m set concealcursor=nc
 
 " START LATEX STUFF "
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.

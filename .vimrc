@@ -38,6 +38,8 @@ Bundle 'vim-scripts/utl.vim'
 Bundle 'xolox/vim-notes'
 "tagbar
 Bundle 'majutsushi/tagbar'
+"power line
+Bundle 'Lokaltog/powerline.git'
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
 filetype on
@@ -93,6 +95,7 @@ inoremap jk <Esc>
 let mapleader = ","
 noremap \ ,
 
+python from powerline.bindings.vim import source_plugin; source_plugin()
 "gundo
 "
 noremap <Leader>u : GundoToggle<CR>
@@ -122,6 +125,7 @@ augroup filetype_java
 	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
 	au FileType java nnoremap <buffer> <Leader>ci :JavaImportClean<CR>
 	au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
+	au FileType java nnoremap <buffer> <Leader>S :JavaSet<CR>
 	au FileType java nnoremap <buffer> <Leader>GS :JavaGetSet<CR>
 	au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
 	au FileType java nnoremap <buffer> <Leader>j :Java<CR>

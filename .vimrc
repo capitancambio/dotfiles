@@ -3,6 +3,7 @@ filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
 set rtp+=~/dotfiles/_vim/
+set rtp+=~/dotfiles/_vim/after/
 set rtp+=~/dotfiles/_vim/plugins/
 "other syntax plugin files etc from dotfiles
 call vundle#rc()
@@ -10,36 +11,49 @@ call vundle#rc()
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
+"Nicer view of the fs
 Bundle 'scrooloose/nerdtree'
+"Universal syntax checker
 Bundle 'scrooloose/syntastic'
-"Bundle 'garbas/vim-snipmate'
-"snipmate deps
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle "tomtom/tlib_vim"
-"Bundle "snipmate-snippets"
+"snippets
 Bundle "vim-scripts/UltiSnips"
+" Beautify tables
 Bundle "godlygeek/tabular"
+"surround utilities
 Bundle "tpope/vim-surround"
+"amazing latex plugin
 Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
+"fuzzy file finder
 Bundle 'git://git.wincent.com/command-t.git'
+"shows the open buffers in a minibuffer
 Bundle 'fholgado/minibufexpl.vim'
+"pytohn utilities
 Bundle 'sontek/rope-vim'
+"git bindings 
 Bundle 'tpope/vim-fugitive'
 """ like fugitive but for mercurial
 Bundle 'ludovicchabant/vim-lawrencium'
+"undo tree
 Bundle 'sjl/gundo.vim'
+"unix commands from vim
 Bundle 'tpope/vim-eunuch'
+"simple comment and uncomment utility
 Bundle 'scrooloose/nerdcommenter'
 "Matlab
 Bundle 'vim-scripts/MatlabFilesEdition'
 "Time management 
 Bundle 'vim-scripts/vimwiki'
-Bundle 'vim-scripts/utl.vim'
 Bundle 'xolox/vim-notes'
-"tagbar
+"opens urls and more from vi
+Bundle 'vim-scripts/utl.vim'
+"tagbar file skeleton 
 Bundle 'majutsushi/tagbar'
 "power line
 Bundle 'Lokaltog/powerline.git'
+"Databases
+Bundle 'vim-scripts/dbext.vim'
+
+
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
 filetype on
@@ -123,7 +137,7 @@ augroup filetype_java
 	au!
 	""eclim maps
 	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
-	au FileType java nnoremap <buffer> <Leader>ci :JavaImportClean<CR>
+	au FileType java nnoremap <buffer> <Leader>ic :JavaImportClean<CR>
 	au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
 	au FileType java nnoremap <buffer> <Leader>S :JavaSet<CR>
 	au FileType java nnoremap <buffer> <Leader>GS :JavaGetSet<CR>
@@ -140,6 +154,10 @@ nnoremap <leader>o : Utl ol<CR>
 "Notes
 let g:notes_directory = '~/Dropbox/notes'
 "Wiki
+
+"dbext configuration
+let g:dbext_default_profile_ldb_paper= 'type=SQLITE:dbname=/home/javi/Dropbox/uni/src/python/results/ldb_sets/sets.db'
+let dbext_default_SQLITE_bin = 'sqlite3'
 
 let wiki_daisy = {}
 let wiki_daisy.path = '~/Dropbox/wiki/daisy'
@@ -162,6 +180,13 @@ au BufEnter *.wiki set spell
 " rope 
 let ropevim_enable_autoimport=1
 let g:ropevim_autoimport_modules = ["unittest", "numpy","logging","threading"]
+
+"beauty_matlab conf
+let g:beauty_matlab_greek=1
+
+"matlab conceal
+au BufEnter *.m set conceallevel=2
+au BufEnter *.m set concealcursor=
 
 " START LATEX STUFF "
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.

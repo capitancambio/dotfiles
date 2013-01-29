@@ -17,6 +17,8 @@ defscrollback 1000
 # start with visual bell as default
 vbell on
 vbell_msg "bell on %t (%n)"
+#utf-8ed
+utf8 on on
 
 # look and feel
 hardstatus on

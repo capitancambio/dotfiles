@@ -58,11 +58,12 @@ filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
 filetype on
 filetype plugin on
-colorscheme 256_jungle
 "syntax on
-syntax on
-set backspace=2
+syntax enable 
+colorscheme 256_jungle
+
 "Various sets
+set backspace=2
 set nocompatible
 set autoindent
 set ruler
@@ -105,7 +106,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 "my own private escape
 inoremap jk <Esc>
-
+" to save always when the focus is lost
+au FocusLost * silent! wa
 let mapleader = ","
 noremap \ ,
 
@@ -114,7 +116,7 @@ python from powerline.bindings.vim import source_plugin; source_plugin()
 "
 noremap <Leader>u : GundoToggle<CR>
 "Tagbar
-noremap <Leader>tb : TagbarToggle<CR>
+noremap <Leader>b : TagbarToggle<CR>
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
 "Ultisnippets
@@ -187,6 +189,8 @@ let g:beauty_matlab_greek=1
 "matlab conceal
 au BufEnter *.m set conceallevel=2
 au BufEnter *.m set concealcursor=
+"to colapse classes
+au BufEnter *.m set foldlevel=3
 
 " START LATEX STUFF "
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.

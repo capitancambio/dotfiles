@@ -4,6 +4,7 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/vundle/
 set rtp+=~/dotfiles/_vim/
 set rtp+=~/dotfiles/_vim/after/
+set rtp+=~/dotfiles/_vim/syntax/
 set rtp+=~/dotfiles/_vim/plugins/
 "other syntax plugin files etc from dotfiles
 call vundle#rc()
@@ -23,8 +24,6 @@ Bundle "godlygeek/tabular"
 Bundle "tpope/vim-surround"
 "amazing latex plugin
 Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
-"fuzzy file finder
-Bundle 'git://git.wincent.com/command-t.git'
 "shows the open buffers in a minibuffer
 Bundle 'fholgado/minibufexpl.vim'
 "pytohn utilities
@@ -50,9 +49,8 @@ Bundle 'vim-scripts/utl.vim'
 Bundle 'majutsushi/tagbar'
 "power line
 Bundle 'Lokaltog/powerline.git'
-"Databases
-Bundle 'vim-scripts/dbext.vim'
-
+"fuzzy file finder
+Bundle 'kien/ctrlp.vim.git'
 
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
@@ -76,8 +74,8 @@ if isdirectory($HOME . '/.vim/undo') == 0
   endif
 set undodir=~/.vim/undo
 set showmatch
-set foldmethod=indent
-set foldlevel=10
+set foldmethod=syntax
+set foldlevel=2
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
 set hlsearch
@@ -85,16 +83,11 @@ set suffixesadd+=.m
 set suffixesadd+=.rb
 set suffixesadd+=.py
 set suffixesadd+=.java
-" bucket list: just use  hkjl to move
 "
 nnoremap <up> <C-a>
 nnoremap <down> <C-x>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
 inoremap <up> <C-a> 
 inoremap <down> <C-x>
-inoremap <left> <nop>
-inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
@@ -131,7 +124,9 @@ nnoremap sp : sp<CR>
 nnoremap <leader><leader> :<c-u>exe "b ".v:count<cr>
 "save
 nnoremap <leader>w :w<cr>
-
+"ctrP to ,t
+nnoremap <leader>t :CtrlP<cr>
+set wildignore=*.class,*.dat
 abb trail trial
 augroup filetype_java
 	au!
@@ -148,7 +143,6 @@ augroup filetype_java
 augroup END
 "fugitive
 nnoremap <leader>gs : Gstatus<CR>
-nnoremap <leader>gc : Gcommit<CR>
 "Utl
 nnoremap <leader>o : Utl ol<CR>
 "Notes
@@ -235,3 +229,4 @@ fun! CreateJUnit()
 	silent! exec ":!mkdir -p ". fnamemodify(testFile,':p:h:')
 	exec ":e ".testFile
 endf
+

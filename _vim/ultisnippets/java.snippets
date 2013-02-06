@@ -21,3 +21,26 @@ endsnippet
 snippet pr "string format" 
 String.format($1,$2);
 endsnippet
+
+
+snippet ut "test" b
+@Test
+public void ${1:Name}() throws Exception{
+	$0
+}
+endsnippet
+
+snippet su "setup" b
+@Before
+public void setUp() {
+	$0
+}
+endsnippet
+
+snippet td "teardown" b
+@After
+public void tearDown() {
+	$0
+}
+endsnippet
+

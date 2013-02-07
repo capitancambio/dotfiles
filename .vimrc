@@ -51,6 +51,10 @@ Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/powerline.git'
 "fuzzy file finder
 Bundle 'kien/ctrlp.vim.git'
+"CamelCase motion
+Bundle 'camelcasemotion'
+"Easy motion
+Bundle 'Lokaltog/vim-easymotion'
 
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
@@ -83,6 +87,9 @@ set suffixesadd+=.m
 set suffixesadd+=.rb
 set suffixesadd+=.py
 set suffixesadd+=.java
+
+
+let mapleader = ","
 "
 nnoremap <up> <C-a>
 nnoremap <down> <C-x>
@@ -99,52 +106,68 @@ nnoremap <C-l> <C-w>l
 "my own private escape
 inoremap jk <Esc>
 
-let mapleader = ","
 noremap \ ,
+"more cool mappings
+
+nnoremap <tab> za
+"nnoremap <enter> o<esc> 
+
+
+"add camelcase functionality
+"make sth to toggle this...
+nnoremap <leader>w <Plug>CamelCaseMotion_w
+nnoremap <leader>b <Plug>CamelCaseMotion_b
+nnoremap <leader>e <Plug>CamelCaseMotion_e
+"sunmap w
+"sunmap b
+"sunmap e
+
+"Tagbar
+nnoremap <Leader>v : TagbarToggle<CR>
+"Other maps
+inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
+nnoremap <leader>s : source %<CR>
+"splits
+nnoremap vs : vs<CR>
+nnoremap sp : sp<CR>
+"jump to buff
+nnoremap <leader><leader> :<c-u>exe "b ".v:count<cr>
+"ctrP to ,t
+nnoremap <leader>t :CtrlP<cr>
+"fugitive
+nnoremap <leader>g : Gstatus<CR>
+"Utl
+nnoremap <leader>o : Utl ol<CR>
+"Maven
+nmap <F5> :Mvn clean install<CR>
+nmap <F6> :Mvn clean package<CR>
+"go to vimrc
+nnoremap <leader>. :e $MYVIMRC<CR>
 
 python from powerline.bindings.vim import source_plugin; source_plugin()
-"gundo
-"
-noremap <Leader>u : GundoToggle<CR>
-"Tagbar
-noremap <Leader>tb : TagbarToggle<CR>
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
 "Ultisnippets
 let g:UltiSnipsSnippetsDir="~/dotfiles/_vim/ultisnippets/"
 let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
 
-"Other maps
-inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
-noremap <leader>s : source %<CR>
-"splits
-nnoremap vs : vs<CR>
-nnoremap sp : sp<CR>
-"jump to buff
-nnoremap <leader><leader> :<c-u>exe "b ".v:count<cr>
-"save
-nnoremap <leader>w :w<cr>
-"ctrP to ,t
-nnoremap <leader>t :CtrlP<cr>
+
+let g:EasyMotion_leader_key='<Space>'
 set wildignore=*.class,*.dat
 abb trail trial
 augroup filetype_java
 	au!
 	""eclim maps
 	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
-	au FileType java nnoremap <buffer> <Leader>ic :JavaImportClean<CR>
+	au FileType java nnoremap <buffer> <Leader>i :JavaImportClean<CR>
 	au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
 	au FileType java nnoremap <buffer> <Leader>S :JavaSet<CR>
 	au FileType java nnoremap <buffer> <Leader>GS :JavaGetSet<CR>
 	au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
-	au FileType java nnoremap <buffer> <Leader>j :Java<CR>
-	au FileType java nnoremap <buffer> <Leader>ju :JUnitExecute<CR>
-	au FileType java nnoremap <buffer> <Leader>jur :JUnitResult<CR>
+	au FileType java nnoremap <buffer> <Leader>j :JUnitExecute<CR>
+	au FileType java nnoremap <buffer> <Leader>jr :JUnitResult<CR>
+	au FileType java nnoremap <buffer> <Leader>jc :JUnitCreate<CR>
 augroup END
-"fugitive
-nnoremap <leader>gs : Gstatus<CR>
-"Utl
-nnoremap <leader>o : Utl ol<CR>
 "Notes
 let g:notes_directory = '~/Dropbox/notes'
 "Wiki
@@ -213,9 +236,6 @@ let g:Tex_MultipleCompileFormats='pdf'
 " END LATEX STUFF "
 "
 "
-"Maven
-nmap <F5> :Mvn clean install<CR>
-nmap <F6> :Mvn clean package<CR>
 
 if !exists(':JUnitCreate')
   command! JUnitCreate call CreateJUnit()

@@ -31,8 +31,8 @@ defbce "on"
 term "screen-256color-bce"
 shelltitle "shell"
 screen -t matlab 0 matlab -nodesktop
-chdir ~/Dropbox/uni/src/matlab/ng/
+chdir ~/src/bcifwk/
 screen -t code 1 
-chdir ~/Dropbox/uni/src/matlab/ng/
+chdir ~/src/bcifwk/
 screen -t shell 2 
 select 1

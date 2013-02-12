@@ -158,13 +158,13 @@ abb trail trial
 augroup filetype_java
 	au!
 	""eclim maps
-	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
-	au FileType java nnoremap <buffer> <Leader>i :JavaImportClean<CR>
+	au FileType java nnoremap <buffer> <Leader>m :JavaImport<CR>
+	au FileType java nnoremap <buffer> <Leader>i :JavaImportOrganize<CR>
 	au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
 	au FileType java nnoremap <buffer> <Leader>S :JavaSet<CR>
 	au FileType java nnoremap <buffer> <Leader>GS :JavaGetSet<CR>
 	au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
-	au FileType java nnoremap <buffer> <Leader>j :JUnitExecute<CR>
+	au FileType java nnoremap <buffer> <Leader>j :MJUnit<CR>
 	au FileType java nnoremap <buffer> <Leader>jr :JUnitResult<CR>
 	au FileType java nnoremap <buffer> <Leader>jc :JUnitCreate<CR>
 augroup END
@@ -200,6 +200,12 @@ let g:ropevim_autoimport_modules = ["unittest", "numpy","logging","threading"]
 
 "beauty_matlab conf
 let g:beauty_matlab_greek=1
+
+let g:syntastic_mode_map ={'mode': 'active',
+                                   \ 'active_filetypes': ['ruby', 'php'],
+                                   \ 'passive_filetypes': ['java'] }
+
+
 
 "matlab conceal
 au BufEnter *.m set conceallevel=2
@@ -241,6 +247,9 @@ if !exists(':JUnitCreate')
   command! JUnitCreate call CreateJUnit()
 endif
 
+if !exists(':MJUnit')
+  command! MJUnit call RunJUnit()
+endif
 ""My functions 
 fun! CreateJUnit()
 
@@ -250,3 +259,9 @@ fun! CreateJUnit()
 	exec ":e ".testFile
 endf
 
+fun! RunJUnit()
+
+	let testFile=expand('%:t:r')
+	echom ":Mvn clean test -Dtest= ".testFile
+	exec ":Mvn clean test -Dtest=".testFile
+endf

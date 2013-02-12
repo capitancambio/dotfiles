@@ -60,11 +60,12 @@ filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
 filetype on
 filetype plugin on
-colorscheme 256_jungle
 "syntax on
-syntax on
-set backspace=2
+syntax enable 
+colorscheme 256_jungle
+
 "Various sets
+set backspace=2
 set nocompatible
 set autoindent
 set ruler
@@ -105,13 +106,15 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 "my own private escape
 inoremap jk <Esc>
-
+let mapleader = ","
 noremap \ ,
-"more cool mappings
+
+"gundo
+noremap <Leader>u : GundoToggle<CR>
+"Tagbar
+noremap <Leader>b : TagbarToggle<CR>
 
 nnoremap <tab> za
-"nnoremap <enter> o<esc> 
-
 
 "add camelcase functionality
 "make sth to toggle this...
@@ -154,7 +157,12 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
 
 let g:EasyMotion_leader_key='<Space>'
 set wildignore=*.class,*.dat
+"abbs!
 abb trail trial
+
+" to save always when the focus is lost
+au FocusLost * silent! wa
+
 augroup filetype_java
 	au!
 	""eclim maps
@@ -210,6 +218,8 @@ let g:syntastic_mode_map ={'mode': 'active',
 "matlab conceal
 au BufEnter *.m set conceallevel=2
 au BufEnter *.m set concealcursor=
+"to colapse classes
+au BufEnter *.m set foldlevel=3
 
 " START LATEX STUFF "
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.

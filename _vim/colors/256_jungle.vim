@@ -13,7 +13,7 @@ let g:colors_name = "256_jungle"
 
 "hi IncSearch -- no settings --
 "hi WildMenu -- no settings --
-"hi SignColumn -- no settings --
+hi SignColumn ctermbg=NONE
 hi SpecialComment guifg=#d78700 guibg=NONE guisp=NONE gui=NONE ctermfg=172 ctermbg=NONE cterm=NONE
 hi Typedef guifg=#d75f00 guibg=NONE guisp=NONE gui=NONE ctermfg=166 ctermbg=NONE cterm=NONE
 "hi Title -- no settings --

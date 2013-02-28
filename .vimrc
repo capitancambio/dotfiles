@@ -55,6 +55,8 @@ Bundle 'kien/ctrlp.vim.git'
 Bundle 'camelcasemotion'
 "Easy motion
 Bundle 'Lokaltog/vim-easymotion'
+"CSV
+Bundle 'chrisbra/csv.vim.git'
 
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
@@ -147,7 +149,8 @@ nmap <F6> :Mvn clean package<CR>
 "go to vimrc
 nnoremap <leader>. :e $MYVIMRC<CR>
 
-python from powerline.bindings.vim import source_plugin; source_plugin()
+"python from powerline.bindings.vim import source_plugin; source_plugin()
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
 "Ultisnippets

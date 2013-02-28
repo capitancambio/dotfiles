@@ -57,6 +57,8 @@ Bundle 'camelcasemotion'
 Bundle 'Lokaltog/vim-easymotion'
 "CSV
 Bundle 'chrisbra/csv.vim.git'
+"git-gutter
+Bundle 'airblade/vim-gitgutter'
 
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
@@ -137,6 +139,8 @@ nnoremap vs : vs<CR>
 nnoremap sp : sp<CR>
 "jump to buff
 nnoremap <leader><leader> :<c-u>exe "b ".v:count<cr>
+
+nnoremap <leader>x :execute "silent !tmux select-pane -t 0;tmux send-keys -t 0:0 'temp' Enter;tmux select-pane -t 1"<CR>:redraw! <CR>
 "ctrP to ,t
 nnoremap <leader>t :CtrlP<cr>
 "fugitive
@@ -179,6 +183,12 @@ augroup filetype_java
 	au FileType java nnoremap <buffer> <Leader>jr :JUnitResult<CR>
 	au FileType java nnoremap <buffer> <Leader>jc :JUnitCreate<CR>
 augroup END
+
+"augroup filetype_matlab
+	"au!
+	""Execte temp file in the matlab window in screen
+	"au FileType matlab nnoremap <buffer> <leader>a :!screen -S matlab -p 0 -X stuff 'temp<CR>
+"augroup END
 "Notes
 let g:notes_directory = '~/Dropbox/notes'
 "Wiki
@@ -271,6 +281,18 @@ fun! CreateJUnit()
 	silent! exec ":!mkdir -p ". fnamemodify(testFile,':p:h:')
 	exec ":e ".testFile
 endf
+"matlab ctags tricks
+let g:tagbar_type_matlab= {
+            \ 'ctagstype' : 'MatLab',
+			\ 'kinds' : [
+			\'c:classes',
+			\'f:fields',
+			\'m:methods',
+			\'F:functions',
+			\ ]
+			\ }
+
+
 
 fun! RunJUnit()
 

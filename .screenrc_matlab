@@ -17,6 +17,8 @@ defscrollback 1000
 # start with visual bell as default
 vbell on
 vbell_msg "bell on %t (%n)"
+#utf-8ed
+utf8 on on
 
 # look and feel
 hardstatus on
@@ -28,9 +30,9 @@ termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 defbce "on" 
 term "screen-256color-bce"
 shelltitle "shell"
-screen -t matlab 0 matlab
-chdir ~/Dropbox/uni/src/matlab/ng/
+screen -t matlab 0 matlab -nodesktop
+chdir ~/src/bcifwk/
 screen -t code 1 
-chdir ~/Dropbox/uni/src/matlab/ng/
+chdir ~/src/bcifwk/
 screen -t shell 2 
 select 1

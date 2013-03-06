@@ -2,49 +2,71 @@ set nocompatible               " be iMproved
 filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/dotfiles/_vim/
+set rtp+=~/dotfiles/_vim/after/
+set rtp+=~/dotfiles/_vim/syntax/
+set rtp+=~/dotfiles/_vim/plugins/
 "other syntax plugin files etc from dotfiles
 call vundle#rc()
-set rtp+=~/dotfiles/_vim/
-set rtp+=~/dotfiles/_vim/bundle/snipmate-snippets/
 
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
+"Nicer view of the fs
 Bundle 'scrooloose/nerdtree'
+"Universal syntax checker
 Bundle 'scrooloose/syntastic'
-Bundle 'garbas/vim-snipmate'
-"snipmate deps
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle "tomtom/tlib_vim"
-Bundle "snipmate-snippets"
+"snippets
+Bundle "vim-scripts/UltiSnips"
+" Beautify tables
 Bundle "godlygeek/tabular"
+"surround utilities
 Bundle "tpope/vim-surround"
+"amazing latex plugin
 Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
-Bundle 'git://git.wincent.com/command-t.git'
+"shows the open buffers in a minibuffer
 Bundle 'fholgado/minibufexpl.vim'
+"pytohn utilities
 Bundle 'sontek/rope-vim'
-Bundle 'tpope/vim-fugitive.git'
+"git bindings 
+Bundle 'tpope/vim-fugitive'
+""" like fugitive but for mercurial
+Bundle 'ludovicchabant/vim-lawrencium'
+"undo tree
 Bundle 'sjl/gundo.vim'
-Bundle 'vim-scripts/SwapIt'
+"unix commands from vim
+Bundle 'tpope/vim-eunuch'
+"simple comment and uncomment utility
+Bundle 'scrooloose/nerdcommenter'
 "Matlab
 Bundle 'vim-scripts/MatlabFilesEdition'
 "Time management 
 Bundle 'vim-scripts/vimwiki'
-Bundle 'vim-scripts/utl.vim'
 Bundle 'xolox/vim-notes'
-Bundle 'mattn/webapi-vim'
-"Bundle 'mattn/googletasks-vim'
-"tagbar
+"opens urls and more from vi
+Bundle 'vim-scripts/utl.vim'
+"tagbar file skeleton 
 Bundle 'majutsushi/tagbar'
+"power line
+Bundle 'Lokaltog/powerline.git'
+"fuzzy file finder
+Bundle 'kien/ctrlp.vim.git'
+"CamelCase motion
+Bundle 'camelcasemotion'
+"Easy motion
+Bundle 'Lokaltog/vim-easymotion'
+"git-gutter
+Bundle 'airblade/vim-gitgutter'
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
 filetype on
 filetype plugin on
-colorscheme 256_jungle
 "syntax on
-syntax on
-set backspace=2
+syntax enable 
+colorscheme 256_jungle
+
 "Various sets
+set backspace=2
 set nocompatible
 set autoindent
 set ruler
@@ -58,8 +80,8 @@ if isdirectory($HOME . '/.vim/undo') == 0
   endif
 set undodir=~/.vim/undo
 set showmatch
-set foldmethod=indent
-set foldlevel=10
+set foldmethod=syntax
+set foldlevel=2
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
 set hlsearch
@@ -67,16 +89,14 @@ set suffixesadd+=.m
 set suffixesadd+=.rb
 set suffixesadd+=.py
 set suffixesadd+=.java
-" bucket list: just use  hkjl to move
+
+
+let mapleader = ","
 "
 nnoremap <up> <C-a>
 nnoremap <down> <C-x>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
 inoremap <up> <C-a> 
 inoremap <down> <C-x>
-inoremap <left> <nop>
-inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
@@ -87,64 +107,92 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 "my own private escape
 inoremap jk <Esc>
-
 let mapleader = ","
 noremap \ ,
 
 "gundo
-"
 noremap <Leader>u : GundoToggle<CR>
 "Tagbar
-noremap <Leader>tb : TagbarToggle<CR>
-let g:tagbar_autofocus=1
-let g:tagbar_autoclose=1
+noremap <Leader>b : TagbarToggle<CR>
 
+nnoremap <tab> za
+
+"add camelcase functionality
+"make sth to toggle this...
+nnoremap <leader>w <Plug>CamelCaseMotion_w
+nnoremap <leader>b <Plug>CamelCaseMotion_b
+nnoremap <leader>e <Plug>CamelCaseMotion_e
+"sunmap w
+"sunmap b
+"sunmap e
+
+"Tagbar
+nnoremap <Leader>v : TagbarToggle<CR>
 "Other maps
 inoremap <Leader>fn <C-R>=expand("%:t:r")<CR>
-noremap <leader>s : source %<CR>
+nnoremap <leader>s : source %<CR>
 "splits
 nnoremap vs : vs<CR>
 nnoremap sp : sp<CR>
 "jump to buff
 nnoremap <leader><leader> :<c-u>exe "b ".v:count<cr>
-"save
-nnoremap <leader>w :w<cr>
 
-abb trail trial
-"comment autocommand
-augroup filetype_matlab
-	au!
-	au FileType matlab nnoremap <buffer> <Leader>C : s/^\(\s*\)/\1%/g<CR>
-	au FileType matlab nnoremap <buffer> <Leader>uc : s/^%//g<CR>
-	au FileType matlab nnoremap <buffer> <Leader>x :exec '!screen -S matlab -p 0 -X stuff ''temp'' ' 
-
-augroup END
-augroup filetype_python
-	au!
-	au FileType python nnoremap <buffer> <Leader>C : s/^\(\s*\)/\1#/g<CR>
-	au FileType python nnoremap <buffer> <Leader>uc : s/^#//g<CR>
-augroup END
-augroup filetype_java
-	au!
-	au FileType java nnoremap <buffer> <Leader>C :s/^\(\s*\)/\1\/\//g<CR>
-	au FileType java vnoremap <buffer> <Leader>C :s/^\(\s*\)/\1\/\//g<CR>
-	au FileType java  nnoremap <buffer> <Leader>uc : s/^\/\///g<CR>
-	""eclim maps
-	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
-	au FileType java nnoremap <buffer> <Leader>ci :JavaImportClean<CR>
-	au FileType java nnoremap <buffer> <Leader>G :JavaSet<CR>
-	au FileType java nnoremap <buffer> <Leader>GS :JavaSetGet<CR>
-	au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
-	au FileType java nnoremap <buffer> <Leader>j :Java<CR>
-augroup END
+nnoremap <leader>x :execute "silent !tmux select-pane -t 0;tmux send-keys -t 0:0 'temp' Enter;tmux select-pane -t 1"<CR>:redraw! <CR>
+"ctrP to ,t
+nnoremap <leader>t :CtrlP<cr>
 "fugitive
-nnoremap <leader>gs : Gstatus<CR>
-nnoremap <leader>gc : Gcommit<CR>
+nnoremap <leader>g : Gstatus<CR>
 "Utl
 nnoremap <leader>o : Utl ol<CR>
+"Maven
+nmap <F5> :Mvn clean install<CR>
+nmap <F6> :Mvn clean package<CR>
+"go to vimrc
+nnoremap <leader>. :e $MYVIMRC<CR>
+
+"python from powerline.bindings.vim import source_plugin; source_plugin()
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+let g:tagbar_autofocus=1
+let g:tagbar_autoclose=1
+"Ultisnippets
+let g:UltiSnipsSnippetsDir="~/dotfiles/_vim/ultisnippets/"
+let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
+
+
+let g:EasyMotion_leader_key='<Space>'
+set wildignore=*.class,*.dat
+"abbs!
+abb trail trial
+
+" to save always when the focus is lost
+au FocusLost * silent! wa
+
+augroup filetype_java
+	au!
+	""eclim maps
+	au FileType java nnoremap <buffer> <Leader>m :JavaImportMissing <CR>
+	au FileType java nnoremap <buffer> <Leader>i :JavaImportClean<CR>
+	au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
+	au FileType java nnoremap <buffer> <Leader>S :JavaSet<CR>
+	au FileType java nnoremap <buffer> <Leader>GS :JavaGetSet<CR>
+	au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
+	au FileType java nnoremap <buffer> <Leader>j :JUnitExecute<CR>
+	au FileType java nnoremap <buffer> <Leader>jr :JUnitResult<CR>
+	au FileType java nnoremap <buffer> <Leader>jc :JUnitCreate<CR>
+augroup END
+
+"augroup filetype_matlab
+	"au!
+	""Execte temp file in the matlab window in screen
+	"au FileType matlab nnoremap <buffer> <leader>a :!screen -S matlab -p 0 -X stuff 'temp<CR>
+"augroup END
 "Notes
 let g:notes_directory = '~/Dropbox/notes'
 "Wiki
+
+"dbext configuration
+let g:dbext_default_profile_ldb_paper= 'type=SQLITE:dbname=/home/javi/Dropbox/uni/src/python/results/ldb_sets/sets.db'
+let dbext_default_SQLITE_bin = 'sqlite3'
 
 let wiki_daisy = {}
 let wiki_daisy.path = '~/Dropbox/wiki/daisy'
@@ -167,6 +215,15 @@ au BufEnter *.wiki set spell
 " rope 
 let ropevim_enable_autoimport=1
 let g:ropevim_autoimport_modules = ["unittest", "numpy","logging","threading"]
+
+"beauty_matlab conf
+let g:beauty_matlab_greek=1
+
+"matlab conceal
+au BufEnter *.m set conceallevel=2
+au BufEnter *.m set concealcursor=
+"to colapse classes
+au BufEnter *.m set foldlevel=3
 
 " START LATEX STUFF "
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
@@ -199,7 +256,29 @@ let g:Tex_MultipleCompileFormats='pdf'
 " END LATEX STUFF "
 "
 "
-"Maven
-nmap <F5> :Mvn clean install<CR>
-nmap <F6> :Mvn clean package<CR>
+
+if !exists(':JUnitCreate')
+  command! JUnitCreate call CreateJUnit()
+endif
+
+""My functions 
+fun! CreateJUnit()
+
+	let testFile=substitute(expand('%:p'),'\/src\/main','\/src\/test','')
+	let testFile=substitute(testFile,'\.java','Test.java','')
+	silent! exec ":!mkdir -p ". fnamemodify(testFile,':p:h:')
+	exec ":e ".testFile
+endf
+"matlab ctags tricks
+let g:tagbar_type_matlab= {
+            \ 'ctagstype' : 'MatLab',
+			\ 'kinds' : [
+			\'c:classes',
+			\'f:fields',
+			\'m:methods',
+			\'F:functions',
+			\ ]
+			\ }
+
+
 

@@ -1,0 +1,163 @@
+snippet cl "Simple class definition" b
+classdef ${1:className} ${2:< ${3:handle}}
+	%$1 
+	methods${6:(${7:Access=public})}
+		function self=$1(${7:vargsin})
+			$0	 
+		end
+	end
+
+end
+endsnippet
+
+snippet prop "properties statement" !b
+properties${1:(${2:Access=private})}
+$0
+end
+
+endsnippet
+
+snippet ev "events" b
+events ${1:(${2:attributes})}
+	$0
+end
+endsnippet
+
+snippet enum "enumeration" b
+enumeration 
+	$0
+end
+endsnippet
+
+snippet pr "private" 
+private
+endsnippet
+
+snippet pr "public" 
+public
+endsnippet
+
+
+snippet met "method" b
+function [${1:vargsout}]=${2:name}(self,${3:vargsin})
+	% $2 
+	% inputs: $3
+	% outputs: $1
+	$0
+end
+endsnippet
+
+snippet att "attribute" b
+self.${1:attr}=$1;
+endsnippet
+
+snippet fun "function" b
+function ${1:${2:[vargsout]}=}${3:name}(${4:vargsin})
+	% $3 
+	% inputs: $4
+	% outputs: $2
+	$0
+end
+endsnippet
+
+snippet .. "self"
+self.
+endsnippet
+
+snippet fori "for 1:to" b
+for ${1:i}=${2:1}:${3:to}
+	$0
+end
+endsnippet
+
+
+snippet fors "for size" b
+for ${1:i}=1:size(${2:matrix}${3:,${4:1}})
+	$0
+end
+endsnippet
+
+snippet fore "for each" b
+for ${1:e}=${2:array}
+	$0
+end
+endsnippet
+
+snippet wh "while" !b
+while ${1:cond}
+	$0
+end
+endsnippet
+
+snippet if "if " b
+if ${1:condition}
+	$0
+end
+endsnippet
+
+snippet elif "elseif " b
+elseif ${1:condition}
+	$0
+endsnippet
+
+snippet /el(se)?/ "else" br
+else
+	$0
+endsnippet
+
+snippet sw "switch" b
+switch ${1:variable}
+	$0
+end
+endsnippet
+
+snippet cs "case" b
+case ${1:value}
+	$0
+endsnippet
+
+snippet ow "otherwise" b
+othewise 
+	$0
+endsnippet
+
+snippet br "break"
+break;
+endsnippet
+
+snippet cn "continue"
+continue;
+endsnippet
+
+snippet assert "assert" b
+assert (${1:test},${2:actual});
+endsnippet
+
+snippet fpr "fprintf" 
+fprintf('${1:format}',${2:vars});
+endsnippet
+
+snippet spr "sprintf" 
+sprintf('${1:format}',${2:vars});
+endsnippet
+
+snippet disp "display" b
+disp('${1:str}');
+endsnippet
+
+
+snippet try "try" b
+try
+	$0
+end
+endsnippet
+
+snippet ca "catch" b
+catch ${1:err}
+	$0
+endsnippet
+
+snippet zs "zeros" 
+${1:var}=zeros(${2:sz});
+endsnippet
+# vim:ft=snippets:

@@ -1,0 +1,46 @@
+snippet aseq "Assert equals" !b
+Assert.assertEquals($1,$2);$0
+endsnippet
+
+snippet .. "this" !b
+this.$0
+endsnippet
+
+snippet _log "logger declaration" !b
+private static final Logger logger = LoggerFactory.getLogger($1.class);
+endsnippet
+
+
+snippet pcl "class" b
+public class ${1:`!p
+snip.rv = snip.basename or "untitled"`} ${2:extends ${3:Parent} }${4:implements ${5:Interface} }{
+	$0
+}
+endsnippet
+
+snippet pr "string format" 
+String.format($1,$2);
+endsnippet
+
+
+snippet ut "test" b
+@Test
+public void ${1:Name}() throws Exception{
+	$0
+}
+endsnippet
+
+snippet su "setup" b
+@Before
+public void setUp() {
+	$0
+}
+endsnippet
+
+snippet td "teardown" b
+@After
+public void tearDown() {
+	$0
+}
+endsnippet
+

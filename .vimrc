@@ -116,6 +116,8 @@ augroup filetype_matlab
 	au!
 	au FileType matlab nnoremap <buffer> <Leader>C : s/^\(\s*\)/\1%/g<CR>
 	au FileType matlab nnoremap <buffer> <Leader>uc : s/^%//g<CR>
+	au FileType matlab nnoremap <buffer> <Leader>x :exec '!screen -S matlab -p 0 -X stuff ''temp'' ' 
+
 augroup END
 augroup filetype_python
 	au!

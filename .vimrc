@@ -55,7 +55,7 @@ Bundle 'kien/ctrlp.vim.git'
 Bundle 'camelcasemotion'
 "Easy motion
 Bundle 'Lokaltog/vim-easymotion'
-"git-gutter
+"git-gutter shows git changes on the left column
 Bundle 'airblade/vim-gitgutter'
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'

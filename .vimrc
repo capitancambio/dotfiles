@@ -55,9 +55,7 @@ Bundle 'kien/ctrlp.vim.git'
 Bundle 'camelcasemotion'
 "Easy motion
 Bundle 'Lokaltog/vim-easymotion'
-"CSV
-Bundle 'chrisbra/csv.vim.git'
-"git-gutter
+"git-gutter shows git changes on the left column
 Bundle 'airblade/vim-gitgutter'
 "maven
 Bundle 'mikelue/vim-maven-plugin'

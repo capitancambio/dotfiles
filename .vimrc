@@ -59,6 +59,13 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'chrisbra/csv.vim.git'
 "git-gutter
 Bundle 'airblade/vim-gitgutter'
+"maven
+Bundle 'mikelue/vim-maven-plugin'
+"Handling stuff using gist from vim
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
+"Go
+Bundle 'jnwhiteh/vim-golang.git'
 
 filetype plugin indent on     " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
@@ -298,5 +305,5 @@ fun! RunJUnit()
 
 	let testFile=expand('%:t:r')
 	echom ":Mvn clean test -Dtest= ".testFile
-	exec ":Mvn clean test -Dtest=".testFile
+	exec ":Mvn! clean test -Dtest=".testFile
 endf

@@ -1,0 +1,25 @@
+
+snippet test "Testcase" b
+func Test${1:name}(t *testing.T){
+	${2}
+}
+endsnippet
+
+snippet ec "Error checking" b
+if err!=nil{
+        ${1}
+}
+endsnippet
+
+snippet ecu "Unexpected error gounit" b
+if err!=nil{
+        t.Errorf("Unexpected error %v",err)
+}
+endsnippet
+
+snippet ass "Assert" b
+if ${1:exp}!=${2:res}{
+        t.Errorf("Wrong %v\n\tExpected: %v\n\tResult: %v","$1",$1,$2)
+}
+endsnippet
+

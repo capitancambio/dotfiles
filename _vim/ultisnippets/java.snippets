@@ -18,7 +18,7 @@ snip.rv = snip.basename or "untitled"`} ${2:extends ${3:Parent} }${4:implements 
 }
 endsnippet
 
-snippet pr "string format" 
+snippet pf "string format" 
 String.format($1,$2);
 endsnippet
 
@@ -44,3 +44,14 @@ public void tearDown() {
 }
 endsnippet
 
+snippet tclass "test class"
+@RunWith(MockitoJUnitRunner.class)
+public class ${1:`!p
+snip.rv = snip.basename or "untitled"`} {
+	$0
+}
+endsnippet
+
+snippet mo "mokito" 
+Mockito.$0
+endsnippet

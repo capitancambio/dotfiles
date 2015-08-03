@@ -1,4 +1,11 @@
 
+global !p
+
+def field(word):
+	if not word: return ''
+	return word[0].upper() + word[1:]
+endglobal
+
 snippet test "Testcase" b
 func Test${1:name}(t *testing.T){
 	${2}
@@ -21,5 +28,76 @@ snippet ass "Assert" b
 if ${1:exp}!=${2:res}{
         t.Errorf("Wrong %v\n\tExpected: %v\n\tResult: %v","$1",$1,$2)
 }
+endsnippet
+
+snippet ic "Import convey" b
+import . "github.com/smartystreets/goconvey/convey"
+endsnippet
+
+snippet ctest "Convey" b
+func Test${1:Name}(t *testing.T){
+	Convey("${2:Desc}",t,func(){
+		${3}
+	})
+}
+endsnippet
+
+snippet ct "Convey" b
+Convey("${1:Desc}",func(){
+	${2}
+})
+endsnippet
+
+snippet se "So equal" b
+Convey("${1:Desc}",func(){
+	So(exp,ShouldEqual,res)
+})
+endsnippet
+
+snippet serr "Check error is nill" b
+Convey("Error should be nil",func(){
+	So(err,ShouldBeNil)
+})
+endsnippet
+
+snippet sexerr "Check error is not nil" b
+Convey("We get an error",func(){
+	So(err,ShouldNotBeNil)
+})
+endsnippet
+
+
+snippet ff "Fmt Printf debug" !b
+fmt.Printf("${1} %+v\n", $1)
+endsnippet
+
+snippet fe "Fmt Printf debug" !b
+fmt.Errorf("${1} ")
+endsnippet
+
+snippet jf "Jsoned field" b
+${1} string \`json:"$1"\`
+endsnippet
+
+snippet mf "Model field" b
+${1} $0 \`json:"$1" key:"$1"\`
+endsnippet
+
+snippet sbn "ShouldBeNil" b
+So($1,ShouldBeNil)
+endsnippet
+
+snippet sbt "ShouldBeTrue" b
+So($1,ShouldBeTrue)
+endsnippet
+
+snippet sbf "ShouldBeFalse" b
+So($1,ShouldBeFalse)
+endsnippet
+snippet backService "backup service" b
+backup:=$1
+defer func(){
+	$1=backup
+}()
 endsnippet
 

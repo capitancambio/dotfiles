@@ -21,6 +21,8 @@ Bundle 'scrooloose/syntastic'
 Bundle "godlygeek/tabular"
 " UltiSnips
 Bundle 'SirVer/ultisnips'
+"" and the default snippets
+Bundle 'honza/vim-snippets'
 "surround utilities
 Bundle "tpope/vim-surround"
 "amazing latex plugin
@@ -41,6 +43,7 @@ Bundle 'vim-scripts/MatlabFilesEdition'
 Bundle 'vim-scripts/vimwiki'
 Bundle 'xolox/vim-notes'
 Bundle 'xolox/vim-misc'
+Bundle 'vim-voom/VOoM'
 
 
 "tagbar file skeleton
@@ -58,6 +61,9 @@ Bundle 'kien/ctrlp.vim.git'
 "CamelCase motion
 Bundle 'camelcasemotion'
 
+"skip
+Bundle 'jayflo/vim-skip'
+
 "Easy motion
 Bundle 'Lokaltog/vim-easymotion'
 
@@ -68,16 +74,27 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'mikelue/vim-maven-plugin'
 
 "Handling stuff using gist from vim
-Bundle 'mattn/webapi-vim'
-Bundle 'mattn/gist-vim'
+"Bundle 'mattn/vim-webapi'
+"Bundle 'mattn/vim-gist'
 "Go
-Bundle 'jnwhiteh/vim-golang.git'
-Bundle 'Blackrush/vim-gocode'
+"Bundle 'jnwhiteh/vim-golang.git'
+"Bundle 'Blackrush/vim-gocode'
+Bundle 'fatih/vim-go'
 "Python
 "Bundle 'klen/python-mode.git'
-Bundle 'davidhalter/jedi-vim'
+"Bundle 'davidhalter/vim-jedi'
 "Supertab
-Bundle 'ervandew/supertab'
+"Bundle 'ervandew/supertab'
+
+Bundle 'Valloric/YouCompleteMe'
+
+"Scala
+Bundle 'derekwyatt/vim-scala'
+""Vinegar
+Bundle 'dhruvasagar/vim-vinegar'
+"Gists
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
 
 filetype plugin indent on " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
@@ -121,14 +138,17 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
+set tabstop=8
 " 1 tab == 4 spaces
-"set shiftwidth=4
-"set tabstop=4
+set shiftwidth=8
 
 " Linebreak on 500 characters
 
 set ai "Auto indent
 set si "Smart indent
+
+"ruby highlight goes slooooow if this is not set
+set re=1
 
 
 let mapleader = ","
@@ -146,7 +166,7 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 "my own private escape
-inoremap jk <esc>:w<CR>
+inoremap jk <esc>: w<CR>
 let mapleader = ","
 noremap \ ,
 
@@ -190,8 +210,13 @@ nnoremap <leader>. :e $MYVIMRC<CR>
 
 "go to vimrc
 nnoremap <leader>e :Errors<CR>
+
+"go to next error
+nnoremap <leader>l :lnext<CR>
 "check spelling and grammar from after the deadline
 vnoremap <leader>a :call Atd()<CR>
+"make a file writable
+nnoremap <leader>w :set modifiable<CR>: set buftype=<CR>
 
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
@@ -199,13 +224,14 @@ let g:tagbar_autoclose=1
 let g:UltiSnipsSnippetsDir="~/dotfiles/_vim/ultisnippets/"
 let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
 
-let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-let g:SuperTabContextDiscoverDiscovery =
-                        \ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+"let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+"let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+"let g:SuperTabContextDiscoverDiscovery =
+                        "\ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
 
+let g:SuperTabDefaultCompletionType = "context"
 let g:EasyMotion_leader_key='<Space>'
-set wildignore=*.class,*.dat
+set wildignore=*.class,*.dat,*/public/*,*/ansible/*
 
 "abbs!
 abb trail trial
@@ -213,6 +239,7 @@ abb trail trial
 " to save always when the focus is lost
 au FocusLost * silent! wa
 
+let g:EclimCompletionMethod = 'omnifunc'
 augroup filetype_java
 	au!
 	""eclim maps
@@ -225,14 +252,19 @@ augroup filetype_java
 	au FileType java nnoremap <buffer> <Leader>j :MJUnit<CR>
 	au FileType java nnoremap <buffer> <Leader>jr :JUnitResult<CR>
 	au FileType java nnoremap <buffer> <Leader>jc :JUnitCreate<CR>
+	au FileType java nnoremap <buffer> <Leader>jd :JavaDocComment<CR>
         "au BufWritePre *.java JavaFormat
 augroup END
 let g:EclimPythonValidate=0
 augroup filetype_go
         au!
         au FileType go nnoremap <buffer> <Leader>rt :call RunGotest()<CR>
-        au BufWritePre *.go Fmt
+        au FileType go nnoremap <buffer> <Leader>r :call RunGo()<CR>
+        au FileType go nnoremap <buffer> <Leader>r :call RunGo()<CR>
+        "au BufWritePre *.go Fmt
 augroup END
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap gd <Plug>(go-def)
 "augroup filetype_matlab
 "au!
 ""Execte temp file in the matlab window in screen
@@ -240,6 +272,7 @@ augroup END
 "augroup END
 "Notes
 let g:notes_directories = ['~/Dropbox/notes']
+let g:go_fmt_command="goimports"      
 "Wiki
 
 "dbext configuration
@@ -254,9 +287,6 @@ let wiki_phd.path = '~/Dropbox/wiki/phd'
 nnoremap <leader>wp :execute "normal 2<leader>ww"<cr>
 
 let g:vimwiki_list = [wiki_daisy, wiki_phd]
-" syntastic
-"let g:syntastic_mode_map = { 'mode': 'active','active_filetypes': ['python']  }
-"set statusline=%t\ %#warningmsg#%{SyntasticStatuslineFlag()}%*\ %r%m\ [%l/%L]%=%Y
 "airplane conf
 let g:airline_powerline_fonts = 1
 "minibufexpl conflict with fugitive
@@ -279,7 +309,8 @@ let g:beauty_matlab_greek=1
 
 let g:syntastic_mode_map ={'mode': 'active',
                                    \ 'active_filetypes': ['ruby', 'php'],
-                                   \ 'passive_filetypes': ['java'] }
+                                   \ 'passive_filetypes': ['text'] }
+let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=1
 
@@ -288,6 +319,8 @@ let g:syntastic_loc_list_height=5
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
+"use ag
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
 "matlab conceal
 au BufEnter *.m set conceallevel=2
@@ -394,6 +427,40 @@ fun! RunGotest()
         cd-
 endf
 
+fun! RunGo()
+        cd %:h
+        exec ":!go run main.go"
+        cd-
+endf
+
 fun! Atd()
         exec ":'<,'>w !detex | atdtool -"
 endf
+
+let @f= '^[/\d^Mi_^[l4x$i_^[p'  
+
+"Ultisnips and ycm
+function! g:UltiSnips_Complete()
+    call UltiSnips#ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips#JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-e>"
+" this mapping Enter key to <C-y> to chose the current highlight item 
+" and close the selection list, same as other IDEs.
+" CONFLICT with some plugins like tpope/Endwise
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Handlebars as html
+au BufNewFile,BufRead *.handlebars set filetype=html

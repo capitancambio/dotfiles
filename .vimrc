@@ -45,6 +45,7 @@ Bundle 'xolox/vim-notes'
 Bundle 'xolox/vim-misc'
 Bundle 'vim-voom/VOoM'
 
+Plugin 'embear/vim-localvimrc'
 
 "tagbar file skeleton
 Bundle 'majutsushi/tagbar'
@@ -81,25 +82,51 @@ Bundle 'mikelue/vim-maven-plugin'
 "Bundle 'Blackrush/vim-gocode'
 Bundle 'fatih/vim-go'
 "Python
-"Bundle 'klen/python-mode.git'
+Plugin 'nvie/vim-flake8'
+Plugin 'klen/rope-vim'
+"Plugin 'vim-scripts/Pydiction'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'tell-k/vim-autopep8'
+Plugin 'alfredodeza/pytest.vim'
 "Bundle 'davidhalter/vim-jedi'
 "Supertab
 "Bundle 'ervandew/supertab'
+"
+"Integration with IPython
+Plugin 'ivanov/vim-ipython'
 
 Bundle 'Valloric/YouCompleteMe'
 
 "Scala
 Bundle 'derekwyatt/vim-scala'
+" Formatters mostly for c++
+Plugin 'Chiel92/vim-autoformat'
+
+
 ""Vinegar
 Bundle 'dhruvasagar/vim-vinegar'
 "Gists
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
+"Docker
+Plugin 'ekalinin/Dockerfile.vim'
+
+"C++
+Plugin 'vim-scripts/a.vim'
+Plugin 'alepez/vim-gtest'
+"Swift 
+Plugin 'keith/swift.vim'
+
+"Arduino
+Plugin 'jplaut/vim-arduino-ino'
+
+Bundle 'vim-scripts/Arduino-syntax-file'
+
 
 filetype plugin indent on " required!
 "let g:tagbar_ctags_bin = 'ctags --options=/home/javi/.vim/bundle/MatlabFilesEdition/.ctags'
 filetype on
-filetype plugin on
+"filetype plugin on
 "syntax on
 syntax enable
 colorscheme 256_jungle
@@ -116,8 +143,8 @@ set relativenumber
 "persistent undos
 set undofile
 if isdirectory($HOME . '/.vim/undo') == 0
-    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
-  endif
+        :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+endif
 set undodir=~/.vim/undo
 set showmatch
 set foldmethod=syntax
@@ -138,9 +165,9 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-set tabstop=8
+set tabstop=4
 " 1 tab == 4 spaces
-set shiftwidth=8
+set shiftwidth=4
 
 " Linebreak on 500 characters
 
@@ -227,7 +254,7 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
 "let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
 "let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 "let g:SuperTabContextDiscoverDiscovery =
-                        "\ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+"\ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
 
 let g:SuperTabDefaultCompletionType = "context"
 let g:EasyMotion_leader_key='<Space>'
@@ -241,18 +268,18 @@ au FocusLost * silent! wa
 
 let g:EclimCompletionMethod = 'omnifunc'
 augroup filetype_java
-	au!
-	""eclim maps
-	au FileType java nnoremap <buffer> <Leader>m :JavaImport<CR>
-	au FileType java nnoremap <buffer> <Leader>i :JavaImportOrganize<CR>
-	au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
-	au FileType java nnoremap <buffer> <Leader>S :JavaSet<CR>
-	au FileType java nnoremap <buffer> <Leader>GS :JavaGetSet<CR>
-	au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
-	au FileType java nnoremap <buffer> <Leader>j :MJUnit<CR>
-	au FileType java nnoremap <buffer> <Leader>jr :JUnitResult<CR>
-	au FileType java nnoremap <buffer> <Leader>jc :JUnitCreate<CR>
-	au FileType java nnoremap <buffer> <Leader>jd :JavaDocComment<CR>
+        au!
+        ""eclim maps
+        au FileType java nnoremap <buffer> <Leader>m :JavaImport<CR>
+        au FileType java nnoremap <buffer> <Leader>i :JavaImportOrganize<CR>
+        au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
+        au FileType java nnoremap <buffer> <Leader>S :JavaSet<CR>
+        au FileType java nnoremap <buffer> <Leader>GS :JavaGetSet<CR>
+        au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
+        au FileType java nnoremap <buffer> <Leader>j :MJUnit<CR>
+        au FileType java nnoremap <buffer> <Leader>jr :JUnitResult<CR>
+        au FileType java nnoremap <buffer> <Leader>jc :JUnitCreate<CR>
+        au FileType java nnoremap <buffer> <Leader>jd :JavaDocComment<CR>
         "au BufWritePre *.java JavaFormat
 augroup END
 let g:EclimPythonValidate=0
@@ -300,16 +327,19 @@ au BufEnter *.wiki set spell
 "pep8 is picky as hell
 "let g:pymode_lint_checker = 'pyflakes,mccabe'
 "syntastic is cool enough
-let g:pymode_lint = 0
+"let g:pymode_lint = 0
 "rope vim (inside pymode)
-let g:pymode_rope_autoimport_modules = ["os","shutil","logging","unittest"]
+let g:pymode_rope_autoimport_modules = []
+let g:ropevim_autoimport_modules = ["os","logging","unittest"]
 
 "beauty_matlab conf
 let g:beauty_matlab_greek=1
 
-let g:syntastic_mode_map ={'mode': 'active',
-                                   \ 'active_filetypes': ['ruby', 'php'],
-                                   \ 'passive_filetypes': ['text'] }
+"let g:syntastic_mode_map ={'mode': 'active',
+"\ 'active_filetypes': ['ruby', 'php'],
+"\ 'passive_filetypes': ['text'] }
+"let g:EclimCValidate=0
+"let g:ycm_register_as_syntastic_checker = 0 
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=1
@@ -321,7 +351,13 @@ let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 "use ag
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-
+"let g:syntastic_debug=1
+"let g:syntastic_cpp_compiler = "g++"
+"let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
+"let g:syntastic_cpp_checkers = ["gcc"]
+"echom g:syntastic_cpp_checkers[0]
+"let g:syntastic_cpp_gcc_exec= "make"
+let g:ycm_global_ycm_extra_conf="~/.ycm_extra_conf.py"
 "matlab conceal
 au BufEnter *.m set conceallevel=2
 au BufEnter *.m set concealcursor=
@@ -360,65 +396,68 @@ let g:Tex_MultipleCompileFormats='pdf'
 "
 "
 
+"Local vimrc
+let g:localvimrc_ask=0
+
 if !exists(':JUnitCreate')
-  command! JUnitCreate call CreateJUnit()
+        command! JUnitCreate call CreateJUnit()
 endif
 
 if !exists(':MJUnit')
-  command! MJUnit call RunJUnit()
+        command! MJUnit call RunJUnit()
 endif
 ""My functions
 fun! CreateJUnit()
         let testFile=substitute(expand('%:p'),'\/src\/main','\/src\/test','')
-	let testFile=substitute(testFile,'\.java','Test.java','')
-	silent! exec ":!mkdir -p ". fnamemodify(testFile,':p:h:')
-	exec ":e ".testFile
+        let testFile=substitute(testFile,'\.java','Test.java','')
+        silent! exec ":!mkdir -p ". fnamemodify(testFile,':p:h:')
+        exec ":e ".testFile
 endf
 "matlab ctags tricks
 let g:tagbar_type_matlab= {
-            \ 'ctagstype' : 'MatLab',
-			\ 'kinds' : [
-			\'c:classes',
-			\'f:fields',
-			\'m:methods',
-			\'F:functions',
-			\ ]
-			\ }
+                        \ 'ctagstype' : 'MatLab',
+                        \ 'kinds' : [
+                        \'c:classes',
+                        \'f:fields',
+                        \'m:methods',
+                        \'F:functions',
+                        \ ]
+                        \ }
 
 " gotags
 let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+                        \ 'ctagstype' : 'go',
+                        \ 'kinds'     : [
+                        \ 'p:package',
+                        \ 'i:imports:1',
+                        \ 'c:constants',
+                        \ 'v:variables',
+                        \ 't:types',
+                        \ 'n:interfaces',
+                        \ 'w:fields',
+                        \ 'e:embedded',
+                        \ 'm:methods',
+                        \ 'r:constructor',
+                        \ 'f:functions'
+                        \ ],
+                        \ 'sro' : '.',
+                        \ 'kind2scope' : {
+                        \ 't' : 'ctype',
+                        \ 'n' : 'ntype'
+                        \ },
+                        \ 'scope2kind' : {
+                        \ 'ctype' : 't',
+                        \ 'ntype' : 'n'
+                        \ },
+                        \ 'ctagsbin'  : 'gotags',
+                        \ 'ctagsargs' : '-sort -silent'
+                        \ }
 
 fun! RunJUnit()
 
-	let testFile=expand('%:t:r')
-	echom ":Mvn clean test -Dtest= ".testFile
-	exec ":Mvn! clean test -Dtest=".testFile
+        let testFile=expand('%:t:r')
+        echom ":Mvn clean test -Dtest= ".testFile
+        exec ":Mvn! clean test -Dtest=".testFile
 endf
 
 fun! RunGotest()
@@ -433,6 +472,13 @@ fun! RunGo()
         cd-
 endf
 
+fun! GTest()
+        exec ":make! | GTestRun"
+endf
+
+fun! GTestUnder()
+        exec ":make! | GTestRunUnderCursor"
+endf
 fun! Atd()
         exec ":'<,'>w !detex | atdtool -"
 endf
@@ -441,18 +487,18 @@ let @f= '^[/\d^Mi_^[l4x$i_^[p'
 
 "Ultisnips and ycm
 function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips#JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
+        call UltiSnips#ExpandSnippet()
+        if g:ulti_expand_res == 0
+                if pumvisible()
+                        return "\<C-n>"
+                else
+                        call UltiSnips#JumpForwards()
+                        if g:ulti_jump_forwards_res == 0
+                                return "\<TAB>"
+                        endif
+                endif
         endif
-    endif
-    return ""
+        return ""
 endfunction
 
 au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
@@ -464,3 +510,48 @@ let g:UltiSnipsListSnippets="<c-e>"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Handlebars as html
 au BufNewFile,BufRead *.handlebars set filetype=html
+
+"let g:autopep8_aggressive=1
+let g:autopep8_disable_show_diff=1
+augroup filetype_python
+        au!
+        au FileType python nnoremap <buffer> <Leader>af :Pytest file<CR>
+        au FileType python nnoremap <buffer> <Leader>ac :Pytest class<CR>
+        au FileType python nnoremap <buffer> <Leader>am :Pytest method<CR>
+        au BufNewFile,BufRead 
+                                \ set tabstop=4
+                                \ set softtabstop=4
+                                \ set shiftwidth=4
+                                \ set textwidth=79
+                                \ set expandtab
+                                \ set autoindent
+                                \ set fileformat=unix
+        "au BufWritePost *.py :Autopep8 
+        "au BufWritePost *.py :SyntasticReset
+
+        au FileType python nnoremap <buffer> <Leader>r :!python ./% <CR>
+augroup END
+
+"python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+        project_base_dir = os.environ['VIRTUAL_ENV']
+        activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+        execfile(activate_this, dict(__file__=activate_this))
+EOF
+" autoformat c family
+let g:formatters_cpp = ['clangformat']
+let g:formatdef_clangformat = '"clang-format"'
+au BufWritePre *.cc,*.h :Autoformat
+let g:gtest#highlight_failing_tests = 1
+augroup filetype_cpp
+        au!
+        au FileType cpp nnoremap <buffer> <Leader>r :call GTest()<CR>
+        au FileType cpp nnoremap <buffer> <Leader>ru :call GTestUnder() <CR>
+        "au BufWritePre *.go Fmt
+augroup END
+
+au BufRead,BufNewFile *.ino set filetype=arduino 
+

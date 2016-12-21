@@ -1,0 +1,62 @@
+#This file contains some snippets for making easy to edit asciidoc documents
+priority -50
+
+snippet bang "Format line for vim"
+// vim: set syntax=asciidoc:
+endsnippet
+# Header level 0
+snippet h0 "header level 0" b
+${1:header}
+`!p snip.rv = len(t[1])*'='`
+
+endsnippet
+
+# Header level 1
+snippet h1 "header level 1" b
+= ${1:header}
+
+endsnippet
+
+# Header level 2
+snippet h2 "header level 2" b
+== ${1:header}
+
+endsnippet
+
+# Header level 3
+snippet h3 "header level 3" b
+=== ${1:header}
+
+endsnippet
+
+# Header level 3
+snippet h4 "header level 4" b
+==== ${1:header}
+
+endsnippet
+
+#link 
+snippet link "link" i
+link:${1:url}[${2:desc}]
+endsnippet
+
+#xref
+snippet xref "xref" i
+xref:${1:anchor}[${2:desc}]
+endsnippet
+#image
+snippet image "image" i
+image:${1:path}[${2:desc}]
+endsnippet
+
+#url
+snippet url "url" i
+${1:url}[${2:desc}]
+endsnippet
+
+snippet code "Block" b
+${1:.${2:title}}
+----
+${3:text}
+----
+endsnippet

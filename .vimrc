@@ -529,7 +529,10 @@ augroup filetype_python
         "au BufWritePost *.py :Autopep8 
         "au BufWritePost *.py :SyntasticReset
 
-        au FileType python nnoremap <buffer> <Leader>r :!python ./% <CR>
+                
+        au FileType python nnoremap <buffer> <Leader>r :!python % <CR>
+        au FileType python setlocal formatprg=autopep8\ -
+        au BufWritePre *.py :Autoformat
 augroup END
 
 "python with virtualenv support

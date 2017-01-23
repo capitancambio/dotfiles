@@ -268,27 +268,68 @@ let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 "autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
-endif
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+  "return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  "" For no inserting <CR> key.
+  ""return pumvisible() ? "\<C-y>" : "\<CR>"
+"endfunction
+
+function! ExpandSnippetOrJumpForwardOrReturnTab()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<TAB>"
+    endif
 endfunction
+
+function! s:ExpandSnippetOrReturnEmptyString()
+    if pumvisible()
+        let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<C-y>\<CR>"
+    endif
+    else
+        return "\<CR>"
+endfunction
+
+inoremap <expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ "<C-R>=ExpandSnippetOrJumpForwardOrReturnTab()<CR>"
+" snoremap <TAB> {{{1
+" jump to next placeholder otherwise do nothing
+snoremap <buffer> <silent> <TAB>
+    \ <ESC>:call UltiSnips#JumpForwards()<CR>
+
+noremap <expr> <S-TAB>
+    \ pumvisible() ? "\<C-p>" :
+    \ "<C-R>=UltiSnips#JumpBackwards()<CR>"
+
+snoremap <buffer> <silent> <S-TAB>
+    \ <ESC>:call UltiSnips#JumpBackwards()<CR>
+
+inoremap <silent> <CR> <C-r>=<SID>ExpandSnippetOrReturnEmptyString()<CR>
+
+
 " <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+endif
 
 "let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
 "let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
@@ -525,28 +566,28 @@ endf
 let @f= '^[/\d^Mi_^[l4x$i_^[p'  
 
 "Ultisnips and ycm
-function! g:UltiSnips_Complete()
-        call UltiSnips#ExpandSnippet()
-        if g:ulti_expand_res == 0
-                if pumvisible()
-                        return "\<C-n>"
-                else
-                        call UltiSnips#JumpForwards()
-                        if g:ulti_jump_forwards_res == 0
-                                return "\<TAB>"
-                        endif
-                endif
-        endif
-        return ""
-endfunction
+"function! g:UltiSnips_Complete()
+        "call UltiSnips#ExpandSnippet()
+        "if g:ulti_expand_res == 0
+                "if pumvisible()
+                        "return "\<C-n>"
+                "else
+                        "call UltiSnips#JumpForwards()
+                        "if g:ulti_jump_forwards_res == 0
+                                "return "\<TAB>"
+                        "endif
+                "endif
+        "endif
+        "return ""
+"endfunction
 
 " au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<NOP>"
 let g:UltiSnipsListSnippets="<c-e>"
 " this mapping Enter key to <C-y> to chose the current highlight item 
 " and close the selection list, same as other IDEs.
 " CONFLICT with some plugins like tpope/Endwise
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Handlebars as html
 au BufNewFile,BufRead *.handlebars set filetype=html
 

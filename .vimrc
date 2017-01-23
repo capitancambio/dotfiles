@@ -1,18 +1,18 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/bundle/vundle/gocode
 set rtp+=~/dotfiles/_vim/
 set rtp+=~/dotfiles/_vim/after/
 set rtp+=~/dotfiles/_vim/syntax/
 set rtp+=~/dotfiles/_vim/plugins/
 "other syntax plugin files etc from dotfiles
-call vundle#rc()
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required!
-Bundle 'gmarik/vundle'
+Bundle 'VundleVim/Vundle.vim'
 "Nicer view of the fs
 Bundle 'scrooloose/nerdtree'
 "Universal syntax checker
@@ -41,11 +41,11 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'vim-scripts/MatlabFilesEdition'
 "Time management
 Bundle 'vim-scripts/vimwiki'
-Bundle 'xolox/vim-notes'
-Bundle 'xolox/vim-misc'
-Bundle 'vim-voom/VOoM'
+"Bundle 'xolox/vim-notes'
+"Bundle 'xolox/vim-misc'
+"Bundle 'vim-voom/VOoM'
 
-Plugin 'embear/vim-localvimrc'
+"Plugin 'embear/vim-localvimrc'
 
 "tagbar file skeleton
 Bundle 'majutsushi/tagbar'
@@ -95,7 +95,12 @@ Plugin 'alfredodeza/pytest.vim'
 "Integration with IPython
 Plugin 'ivanov/vim-ipython'
 
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'kien/rainbow_parentheses.vim'
+
+"Bundle 'Valloric/YouCompleteMe'
+Plugin 'Shougo/neocomplete.vim'
+
+"Plugin 'skywind3000/asyncrun.vim'
 
 "Scala
 Bundle 'derekwyatt/vim-scala'
@@ -105,6 +110,7 @@ Plugin 'Chiel92/vim-autoformat'
 
 ""Vinegar
 Bundle 'dhruvasagar/vim-vinegar'
+
 "Gists
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
@@ -121,6 +127,7 @@ Plugin 'keith/swift.vim'
 Plugin 'jplaut/vim-arduino-ino'
 
 Bundle 'vim-scripts/Arduino-syntax-file'
+call vundle#end()
 
 
 filetype plugin indent on " required!
@@ -250,6 +257,38 @@ let g:tagbar_autoclose=1
 "Ultisnippets
 let g:UltiSnipsSnippetsDir="~/dotfiles/_vim/ultisnippets/"
 let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
+"Neocomplete
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns = {}
+endif
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
 
 "let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
 "let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
@@ -501,7 +540,7 @@ function! g:UltiSnips_Complete()
         return ""
 endfunction
 
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+" au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-e>"
 " this mapping Enter key to <C-y> to chose the current highlight item 
@@ -518,6 +557,11 @@ augroup filetype_python
         au FileType python nnoremap <buffer> <Leader>af :Pytest file<CR>
         au FileType python nnoremap <buffer> <Leader>ac :Pytest class<CR>
         au FileType python nnoremap <buffer> <Leader>am :Pytest method<CR>
+
+        au FileType python nnoremap <buffer> <Leader>avf :Pytest file verbose<CR>
+        au FileType python nnoremap <buffer> <Leader>avc :Pytest class verbose<CR>
+        au FileType python nnoremap <buffer> <Leader>avm :Pytest method verbose<CR>
+
         au BufNewFile,BufRead 
                                 \ set tabstop=4
                                 \ set softtabstop=4
@@ -557,4 +601,7 @@ augroup filetype_cpp
 augroup END
 
 au BufRead,BufNewFile *.ino set filetype=arduino 
-
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces

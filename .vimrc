@@ -127,6 +127,8 @@ Plugin 'keith/swift.vim'
 Plugin 'jplaut/vim-arduino-ino'
 
 Bundle 'vim-scripts/Arduino-syntax-file'
+
+Plugin 'roxma/vim-paste-easy'
 call vundle#end()
 
 
@@ -300,20 +302,20 @@ function! s:ExpandSnippetOrReturnEmptyString()
         return "\<CR>"
 endfunction
 
-inoremap <expr> <TAB>
+inoremap <expr><TAB>
     \ pumvisible() ? "\<C-n>" :
     \ "<C-R>=ExpandSnippetOrJumpForwardOrReturnTab()<CR>"
 " snoremap <TAB> {{{1
 " jump to next placeholder otherwise do nothing
-snoremap <buffer> <silent> <TAB>
-    \ <ESC>:call UltiSnips#JumpForwards()<CR>
+"snoremap <buffer> <silent> <TAB>
+    "\ <ESC>:call UltiSnips#JumpForwards()<CR>
 
-noremap <expr> <S-TAB>
-    \ pumvisible() ? "\<C-p>" :
-    \ "<C-R>=UltiSnips#JumpBackwards()<CR>"
+"noremap <expr> <S-TAB>
+    "\ pumvisible() ? "\<C-p>" :
+    "\ "<C-R>=UltiSnips#JumpBackwards()<CR>"
 
-snoremap <buffer> <silent> <S-TAB>
-    \ <ESC>:call UltiSnips#JumpBackwards()<CR>
+"snoremap <buffer> <silent> <S-TAB>
+    "\ <ESC>:call UltiSnips#JumpBackwards()<CR>
 
 inoremap <silent> <CR> <C-r>=<SID>ExpandSnippetOrReturnEmptyString()<CR>
 
@@ -617,7 +619,7 @@ augroup filetype_python
                 
         au FileType python nnoremap <buffer> <Leader>r :!python % <CR>
         au FileType python setlocal formatprg=autopep8\ -
-        au BufWritePre *.py :Autoformat
+        au BufWritePre *.py Autoformat
 augroup END
 
 "python with virtualenv support

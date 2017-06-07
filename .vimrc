@@ -31,6 +31,8 @@ Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
 Bundle 'fholgado/minibufexpl.vim'
 "git bindings
 Bundle 'tpope/vim-fugitive'
+"rebasing for fugitive
+Plugin 'gregsexton/gitv'
 "undo tree
 Bundle 'sjl/gundo.vim'
 "unix commands from vim
@@ -40,12 +42,6 @@ Bundle 'scrooloose/nerdcommenter'
 "Matlab
 Bundle 'vim-scripts/MatlabFilesEdition'
 "Time management
-Bundle 'vim-scripts/vimwiki'
-"Bundle 'xolox/vim-notes'
-"Bundle 'xolox/vim-misc'
-"Bundle 'vim-voom/VOoM'
-
-"Plugin 'embear/vim-localvimrc'
 
 "tagbar file skeleton
 Bundle 'majutsushi/tagbar'
@@ -59,20 +55,20 @@ Bundle 'bling/vim-airline'
 "fuzzy file finder
 Bundle 'kien/ctrlp.vim.git'
 
-"CamelCase motion
-Bundle 'camelcasemotion'
+""CamelCase motion
+"Bundle 'camelcasemotion'
 
 "skip
 Bundle 'jayflo/vim-skip'
 
 "Easy motion
-Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'Lokaltog/vim-easymotion'
 
 "git-gutter shows git changes on the left column
 Bundle 'airblade/vim-gitgutter'
 
-"maven
-Bundle 'mikelue/vim-maven-plugin'
+"tmux navigatio
+Plugin 'christoomey/vim-tmux-navigator'
 
 "Handling stuff using gist from vim
 "Bundle 'mattn/vim-webapi'
@@ -83,17 +79,19 @@ Bundle 'mikelue/vim-maven-plugin'
 Bundle 'fatih/vim-go'
 "Python
 Plugin 'nvie/vim-flake8'
-Plugin 'klen/rope-vim'
+"Plugin 'klen/rope-vim'
 "Plugin 'vim-scripts/Pydiction'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'tell-k/vim-autopep8'
 Plugin 'alfredodeza/pytest.vim'
+Plugin 'janko-m/vim-test'
+Plugin 'neomake/neomake'
 "Bundle 'davidhalter/vim-jedi'
 "Supertab
 "Bundle 'ervandew/supertab'
 "
 "Integration with IPython
-Plugin 'ivanov/vim-ipython'
+"Plugin 'ivanov/vim-ipython'
 
 Plugin 'kien/rainbow_parentheses.vim'
 
@@ -103,7 +101,7 @@ Plugin 'Shougo/neocomplete.vim'
 "Plugin 'skywind3000/asyncrun.vim'
 
 "Scala
-Bundle 'derekwyatt/vim-scala'
+"Bundle 'derekwyatt/vim-scala'
 " Formatters mostly for c++
 Plugin 'Chiel92/vim-autoformat'
 
@@ -112,8 +110,8 @@ Plugin 'Chiel92/vim-autoformat'
 Bundle 'dhruvasagar/vim-vinegar'
 
 "Gists
-Bundle 'mattn/webapi-vim'
-Bundle 'mattn/gist-vim'
+"Bundle 'mattn/webapi-vim'
+"Bundle 'mattn/gist-vim'
 "Docker
 Plugin 'ekalinin/Dockerfile.vim'
 
@@ -156,7 +154,7 @@ if isdirectory($HOME . '/.vim/undo') == 0
 endif
 set undodir=~/.vim/undo
 set showmatch
-set foldmethod=syntax
+set foldmethod=indent
 set foldlevel=10
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
@@ -201,6 +199,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
 "my own private escape
 inoremap jk <esc>: w<CR>
 let mapleader = ","
@@ -231,7 +230,6 @@ nnoremap sp : sp<CR>
 "jump to buff
 nnoremap <leader><leader> :<c-u>exe "b ".v:count<cr>
 
-nnoremap <leader>x :execute "silent !tmux select-pane -t 0;tmux send-keys -t 0:0 'temp' Enter;tmux select-pane -t 1"<CR>:redraw! <CR>
 "ctrP to ,t
 nnoremap <leader>t :CtrlP<cr>
 "fugitive
@@ -435,7 +433,7 @@ let g:syntastic_warning_symbol='⚠'
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 "let g:syntastic_debug=1
 "let g:syntastic_cpp_compiler = "g++"
-"let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
+let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 "let g:syntastic_cpp_checkers = ["gcc"]
 "echom g:syntastic_cpp_checkers[0]
 "let g:syntastic_cpp_gcc_exec= "make"
@@ -601,6 +599,8 @@ augroup filetype_python
         au FileType python nnoremap <buffer> <Leader>ac :Pytest class<CR>
         au FileType python nnoremap <buffer> <Leader>am :Pytest method<CR>
 
+        au FileType python nnoremap <buffer> <Leader>at :Pytest function verbose<CR>
+
         au FileType python nnoremap <buffer> <Leader>avf :Pytest file verbose<CR>
         au FileType python nnoremap <buffer> <Leader>avc :Pytest class verbose<CR>
         au FileType python nnoremap <buffer> <Leader>avm :Pytest method verbose<CR>
@@ -623,7 +623,7 @@ augroup filetype_python
 augroup END
 
 "python with virtualenv support
-py << EOF
+py3 << EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:

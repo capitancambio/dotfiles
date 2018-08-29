@@ -17,6 +17,8 @@ Bundle 'VundleVim/Vundle.vim'
 Bundle 'scrooloose/nerdtree'
 "Universal syntax checker
 Bundle 'scrooloose/syntastic'
+"Async linters
+"Plugin 'w0rp/ale'
 " Beautify tables
 Bundle "godlygeek/tabular"
 " UltiSnips
@@ -25,8 +27,10 @@ Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 "surround utilities
 Bundle "tpope/vim-surround"
+"substitute preserving case
+Bundle "tpope/vim-abolish"
 "amazing latex plugin
-Bundle "git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex"
+"Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex 
 "shows the open buffers in a minibuffer
 Bundle 'fholgado/minibufexpl.vim'
 "git bindings
@@ -63,9 +67,10 @@ Bundle 'jayflo/vim-skip'
 
 "Easy motion
 "Bundle 'Lokaltog/vim-easymotion'
+Plugin 'unblevable/quick-scope'
 
 "git-gutter shows git changes on the left column
-Bundle 'airblade/vim-gitgutter'
+Plugin  'airblade/vim-gitgutter'
 
 "tmux navigatio
 Plugin 'christoomey/vim-tmux-navigator'
@@ -96,7 +101,15 @@ Plugin 'neomake/neomake'
 Plugin 'kien/rainbow_parentheses.vim'
 
 "Bundle 'Valloric/YouCompleteMe'
-Plugin 'Shougo/neocomplete.vim'
+if has('nvim')
+  Plugin 'Shougo/deoplete.nvim'
+else
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+endif
+Plugin 'zchee/deoplete-go'
+let g:deoplete#enable_at_startup = 1
 
 "Plugin 'skywind3000/asyncrun.vim'
 
@@ -127,6 +140,13 @@ Plugin 'jplaut/vim-arduino-ino'
 Bundle 'vim-scripts/Arduino-syntax-file'
 
 Plugin 'roxma/vim-paste-easy'
+
+Bundle 'leafgarland/typescript-vim'
+
+Plugin 'Quramy/tsuquyomi'
+
+Plugin 'ryanoasis/vim-devicons'
+
 call vundle#end()
 
 
@@ -187,10 +207,6 @@ set re=1
 
 let mapleader = ","
 "
-nnoremap <up> <C-a>
-nnoremap <down> <C-x>
-inoremap <up> <C-a>
-inoremap <down> <C-x>
 nnoremap j gj
 nnoremap k gk
 
@@ -257,6 +273,8 @@ let g:tagbar_autoclose=1
 "Ultisnippets
 let g:UltiSnipsSnippetsDir="~/dotfiles/_vim/ultisnippets/"
 let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
+let g:UltiSnipsJumpForwardTrigger= "<up>"
+let g:UltiSnipsJumpBackwardTrigger="<down>"
 "Neocomplete
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -267,6 +285,7 @@ let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
+let g:deoplete#enable_at_startup = 1
 
 "autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
@@ -322,8 +341,8 @@ inoremap <silent> <CR> <C-r>=<SID>ExpandSnippetOrReturnEmptyString()<CR>
 "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " Enable heavy omni completion.
@@ -342,6 +361,7 @@ set wildignore=*.class,*.dat,*/public/*,*/ansible/*
 
 "abbs!
 abb trail trial
+abb inteface interface
 
 " to save always when the focus is lost
 au FocusLost * silent! wa
@@ -367,20 +387,28 @@ augroup filetype_go
         au!
         au FileType go nnoremap <buffer> <Leader>rt :call RunGotest()<CR>
         au FileType go nnoremap <buffer> <Leader>r :call RunGo()<CR>
-        au FileType go nnoremap <buffer> <Leader>r :call RunGo()<CR>
         "au BufWritePre *.go Fmt
 augroup END
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap gd <Plug>(go-def)
-"augroup filetype_matlab
-"au!
-""Execte temp file in the matlab window in screen
-"au FileType matlab nnoremap <buffer> <leader>a :!screen -S matlab -p 0 -X stuff 'temp<CR>
-"augroup END
-"Notes
-let g:notes_directories = ['~/Dropbox/notes']
-let g:go_fmt_command="goimports"      
-"Wiki
+let g:go_fmt_command = "goimports"
+
+let g:syntastic_go_checkers = ['govet', 'go']
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
+
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+
+
+
+let g:go_highlight_methods = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+"let g:go_auto_type_info = 1
+
 
 "dbext configuration
 let g:dbext_default_profile_ldb_paper= 'type=SQLITE:dbname=/home/javi/Dropbox/uni/src/python/results/ldb_sets/sets.db'
@@ -429,10 +457,20 @@ let g:syntastic_loc_list_height=5
 let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
+
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
+let g:ale_open_list = 1
+let g:ale_keep_list_window_open = 1
+
+
 "use ag
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 "let g:syntastic_debug=1
-"let g:syntastic_cpp_compiler = "g++"
+let g:syntastic_cpp_compiler = "g++"
 let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
 "let g:syntastic_cpp_checkers = ["gcc"]
 "echom g:syntastic_cpp_checkers[0]
@@ -623,7 +661,7 @@ augroup filetype_python
 augroup END
 
 "python with virtualenv support
-py3 << EOF
+py << EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
@@ -634,7 +672,7 @@ EOF
 " autoformat c family
 let g:formatters_cpp = ['clangformat']
 let g:formatdef_clangformat = '"clang-format"'
-au BufWritePre *.cc,*.h :Autoformat
+"au BufWritePre *.cc,*.h :Autoformat
 let g:gtest#highlight_failing_tests = 1
 augroup filetype_cpp
         au!

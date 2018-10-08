@@ -1,153 +1,146 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=~/.vim/bundle/vundle/gocode
+"set rtp+=~/.vim/bundle/Vundle.vim
+"set rtp+=~/.vim/bundle/vundle/gocode
 set rtp+=~/dotfiles/_vim/
 set rtp+=~/dotfiles/_vim/after/
 set rtp+=~/dotfiles/_vim/syntax/
 set rtp+=~/dotfiles/_vim/plugins/
 "other syntax plugin files etc from dotfiles
-call vundle#begin()
+"call vundle#begin()
+call plug#begin('~/.local/share/nvim/plugged')
 
 " let Vundle manage Vundle
 " required!
-Bundle 'VundleVim/Vundle.vim'
+"Plug 'VundleVim/Vundle.vim'
 "Nicer view of the fs
-Bundle 'scrooloose/nerdtree'
-"Universal syntax checker
-Bundle 'scrooloose/syntastic'
+Plug 'scrooloose/nerdtree'
 "Async linters
-"Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 " Beautify tables
-Bundle "godlygeek/tabular"
+Plug 'godlygeek/tabular'
 " UltiSnips
-Bundle 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 "" and the default snippets
-Bundle 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 "surround utilities
-Bundle "tpope/vim-surround"
+Plug 'tpope/vim-surround'
 "substitute preserving case
-Bundle "tpope/vim-abolish"
-"amazing latex plugin
-"Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex 
+Plug 'tpope/vim-abolish'
 "shows the open buffers in a minibuffer
-Bundle 'fholgado/minibufexpl.vim'
+Plug 'fholgado/minibufexpl.vim'
 "git bindings
-Bundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 "rebasing for fugitive
-Plugin 'gregsexton/gitv'
+Plug 'gregsexton/gitv'
 "undo tree
-Bundle 'sjl/gundo.vim'
+Plug 'sjl/gundo.vim'
 "unix commands from vim
-Bundle 'tpope/vim-eunuch'
+Plug 'tpope/vim-eunuch'
 "simple comment and uncomment utility
-Bundle 'scrooloose/nerdcommenter'
-"Matlab
-Bundle 'vim-scripts/MatlabFilesEdition'
-"Time management
-
+Plug 'scrooloose/nerdcommenter'
 "tagbar file skeleton
-Bundle 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 ""power line
-"Bundle 'Lokaltog/powerline.git'
+"Plug 'Lokaltog/powerline.git'
 "airline
-Bundle 'bling/vim-airline'
+Plug 'bling/vim-airline'
 
 
 "fuzzy file finder
-Bundle 'kien/ctrlp.vim.git'
+Plug 'cloudhead/neovim-fuzzy'
 
 ""CamelCase motion
-"Bundle 'camelcasemotion'
+"Plug 'camelcasemotion'
 
 "skip
-Bundle 'jayflo/vim-skip'
+Plug 'jayflo/vim-skip'
 
 "Easy motion
-"Bundle 'Lokaltog/vim-easymotion'
-Plugin 'unblevable/quick-scope'
+"Plug 'Lokaltog/vim-easymotion'
+Plug 'unblevable/quick-scope'
 
 "git-gutter shows git changes on the left column
-Plugin  'airblade/vim-gitgutter'
+Plug  'airblade/vim-gitgutter'
 
 "tmux navigatio
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 
 "Handling stuff using gist from vim
-"Bundle 'mattn/vim-webapi'
-"Bundle 'mattn/vim-gist'
+"Plug 'mattn/vim-webapi'
+"Plug 'mattn/vim-gist'
 "Go
-"Bundle 'jnwhiteh/vim-golang.git'
-"Bundle 'Blackrush/vim-gocode'
-Bundle 'fatih/vim-go'
+"Plug 'jnwhiteh/vim-golang.git'
+"Plug 'Blackrush/vim-gocode'
+Plug 'fatih/vim-go'
 "Python
-Plugin 'nvie/vim-flake8'
-"Plugin 'klen/rope-vim'
-"Plugin 'vim-scripts/Pydiction'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'tell-k/vim-autopep8'
-Plugin 'alfredodeza/pytest.vim'
-Plugin 'janko-m/vim-test'
-Plugin 'neomake/neomake'
-"Bundle 'davidhalter/vim-jedi'
+Plug 'nvie/vim-flake8'
+"Plug 'klen/rope-vim'
+"Plug 'vim-scripts/Pydiction'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'tell-k/vim-autopep8'
+Plug 'alfredodeza/pytest.vim'
+Plug 'janko-m/vim-test'
+
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+"Plug 'davidhalter/vim-jedi'
 "Supertab
-"Bundle 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 "
 "Integration with IPython
-"Plugin 'ivanov/vim-ipython'
+"Plug 'ivanov/vim-ipython'
 
-Plugin 'kien/rainbow_parentheses.vim'
+Plug 'kien/rainbow_parentheses.vim'
 
-"Bundle 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 if has('nvim')
-  Plugin 'Shougo/deoplete.nvim'
-else
-  Plugin 'Shougo/deoplete.nvim'
-  Plugin 'roxma/nvim-yarp'
-  Plugin 'roxma/vim-hug-neovim-rpc'
-endif
-Plugin 'zchee/deoplete-go'
-let g:deoplete#enable_at_startup = 1
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/neoinclude.vim'
+  Plug 'Shougo/neco-syntax'
+  Plug 'zchee/deoplete-jedi', { 'for': 'python'  }
+  Plug 'zchee/deoplete-go', { 'do': 'make' }
 
-"Plugin 'skywind3000/asyncrun.vim'
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#jedi#python_path = 'python3'
+
+"Plug 'skywind3000/asyncrun.vim'
 
 "Scala
-"Bundle 'derekwyatt/vim-scala'
+"Plug 'derekwyatt/vim-scala'
 " Formatters mostly for c++
-Plugin 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 
 
 ""Vinegar
-Bundle 'dhruvasagar/vim-vinegar'
+Plug 'dhruvasagar/vim-vinegar'
 
 "Gists
-"Bundle 'mattn/webapi-vim'
-"Bundle 'mattn/gist-vim'
+"Plug 'mattn/webapi-vim'
+"Plug 'mattn/gist-vim'
 "Docker
-Plugin 'ekalinin/Dockerfile.vim'
+Plug 'ekalinin/Dockerfile.vim'
 
-"C++
-Plugin 'vim-scripts/a.vim'
-Plugin 'alepez/vim-gtest'
-"Swift 
-Plugin 'keith/swift.vim'
+Plug 'roxma/vim-paste-easy'
 
-"Arduino
-Plugin 'jplaut/vim-arduino-ino'
+Plug 'Quramy/tsuquyomi'
 
-Bundle 'vim-scripts/Arduino-syntax-file'
+Plug 'ryanoasis/vim-devicons'
 
-Plugin 'roxma/vim-paste-easy'
-
-Bundle 'leafgarland/typescript-vim'
-
-Plugin 'Quramy/tsuquyomi'
-
-Plugin 'ryanoasis/vim-devicons'
-
-call vundle#end()
+call plug#end()
 
 
 filetype plugin indent on " required!
@@ -268,6 +261,9 @@ vnoremap <leader>a :call Atd()<CR>
 "make a file writable
 nnoremap <leader>w :set modifiable<CR>: set buftype=<CR>
 
+"vim to use the global python instead of the virtuanenv
+"let g:python_host_prog='/usr/bin/python3'
+
 let g:tagbar_autofocus=1
 let g:tagbar_autoclose=1
 "Ultisnippets
@@ -278,14 +274,6 @@ let g:UltiSnipsJumpBackwardTrigger="<down>"
 "Neocomplete
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-let g:deoplete#enable_at_startup = 1
 
 "autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
@@ -344,7 +332,7 @@ inoremap <silent> <CR> <C-r>=<SID>ExpandSnippetOrReturnEmptyString()<CR>
 "inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
         let g:neocomplete#sources#omni#input_patterns = {}
@@ -458,13 +446,14 @@ let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = '😡'
+let g:ale_sign_warning = '😤'
 
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
 let g:ale_open_list = 1
-let g:ale_keep_list_window_open = 1
+let g:ale_keep_list_window_open = 0
+let g:ale_lint_on_text_changed = 'never'
 
 
 "use ag
@@ -661,14 +650,14 @@ augroup filetype_python
 augroup END
 
 "python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-        project_base_dir = os.environ['VIRTUAL_ENV']
-        activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-        execfile(activate_this, dict(__file__=activate_this))
-EOF
+"py << EOF
+"import os
+"import sys
+"if 'VIRTUAL_ENV' in os.environ:
+        "project_base_dir = os.environ['VIRTUAL_ENV']
+        "activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+        "execfile(activate_this, dict(__file__=activate_this))
+"EOF
 " autoformat c family
 let g:formatters_cpp = ['clangformat']
 let g:formatdef_clangformat = '"clang-format"'

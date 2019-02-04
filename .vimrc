@@ -80,9 +80,11 @@ Plug 'nvie/vim-flake8'
 "Plug 'klen/rope-vim'
 "Plug 'vim-scripts/Pydiction'
 Plug 'vim-scripts/indentpython.vim'
-Plug 'tell-k/vim-autopep8'
+"Plug 'tell-k/vim-autopep8'
 Plug 'alfredodeza/pytest.vim'
 Plug 'janko-m/vim-test'
+
+Plug 'hashivim/vim-terraform'
 
 if executable('pyls')
     " pip install python-language-server
@@ -240,7 +242,7 @@ nnoremap sp : sp<CR>
 nnoremap <leader><leader> :<c-u>exe "b ".v:count<cr>
 
 "ctrP to ,t
-nnoremap <leader>t :CtrlP<cr>
+nnoremap <leader>t :FuzzyOpen<cr>
 "fugitive
 nnoremap <leader>g : Gstatus<CR>
 "Utl
@@ -454,6 +456,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_open_list = 1
 let g:ale_keep_list_window_open = 0
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_python_mypy_options = '--ignore-missing-imports'
 
 
 "use ag
@@ -622,15 +625,11 @@ au BufNewFile,BufRead *.handlebars set filetype=html
 let g:autopep8_disable_show_diff=1
 augroup filetype_python
         au!
-        au FileType python nnoremap <buffer> <Leader>af :Pytest file<CR>
-        au FileType python nnoremap <buffer> <Leader>ac :Pytest class<CR>
-        au FileType python nnoremap <buffer> <Leader>am :Pytest method<CR>
+        au FileType python nnoremap <buffer> <Leader>af :Pytest file verbose<CR>
+        au FileType python nnoremap <buffer> <Leader>ac :Pytest class verbose<CR>
+        au FileType python nnoremap <buffer> <Leader>am :Pytest method verbose<CR>
 
         au FileType python nnoremap <buffer> <Leader>at :Pytest function verbose<CR>
-
-        au FileType python nnoremap <buffer> <Leader>avf :Pytest file verbose<CR>
-        au FileType python nnoremap <buffer> <Leader>avc :Pytest class verbose<CR>
-        au FileType python nnoremap <buffer> <Leader>avm :Pytest method verbose<CR>
 
         au BufNewFile,BufRead 
                                 \ set tabstop=4
@@ -645,8 +644,8 @@ augroup filetype_python
 
                 
         au FileType python nnoremap <buffer> <Leader>r :!python % <CR>
-        au FileType python setlocal formatprg=autopep8\ -
-        au BufWritePre *.py Autoformat
+        "au FileType python setlocal formatprg=autopep8\ -
+        "au BufWritePre *.py Autoformat
 augroup END
 
 "python with virtualenv support

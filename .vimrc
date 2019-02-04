@@ -43,8 +43,6 @@ Plug 'scrooloose/nerdcommenter'
 "tagbar file skeleton
 Plug 'majutsushi/tagbar'
 
-""power line
-"Plug 'Lokaltog/powerline.git'
 "airline
 Plug 'bling/vim-airline'
 
@@ -52,14 +50,11 @@ Plug 'bling/vim-airline'
 "fuzzy file finder
 Plug 'cloudhead/neovim-fuzzy'
 
-""CamelCase motion
-"Plug 'camelcasemotion'
 
 "skip
 Plug 'jayflo/vim-skip'
 
 "Easy motion
-"Plug 'Lokaltog/vim-easymotion'
 Plug 'unblevable/quick-scope'
 
 "git-gutter shows git changes on the left column
@@ -68,23 +63,20 @@ Plug  'airblade/vim-gitgutter'
 "tmux navigatio
 Plug 'christoomey/vim-tmux-navigator'
 
-"Handling stuff using gist from vim
-"Plug 'mattn/vim-webapi'
-"Plug 'mattn/vim-gist'
-"Go
-"Plug 'jnwhiteh/vim-golang.git'
-"Plug 'Blackrush/vim-gocode'
 Plug 'fatih/vim-go'
-"Python
-Plug 'nvie/vim-flake8'
-"Plug 'klen/rope-vim'
-"Plug 'vim-scripts/Pydiction'
+
+"Sorting imports
+Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
+
+
 Plug 'vim-scripts/indentpython.vim'
-"Plug 'tell-k/vim-autopep8'
-Plug 'alfredodeza/pytest.vim'
+
 Plug 'janko-m/vim-test'
 
 Plug 'hashivim/vim-terraform'
+
+Plug 'benmills/vimux'
+
 
 if executable('pyls')
     " pip install python-language-server
@@ -94,12 +86,6 @@ if executable('pyls')
         \ 'whitelist': ['python'],
         \ })
 endif
-"Plug 'davidhalter/vim-jedi'
-"Supertab
-"Plug 'ervandew/supertab'
-"
-"Integration with IPython
-"Plug 'ivanov/vim-ipython'
 
 Plug 'kien/rainbow_parentheses.vim'
 
@@ -118,14 +104,6 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#jedi#python_path = 'python3'
-
-"Plug 'skywind3000/asyncrun.vim'
-
-"Scala
-"Plug 'derekwyatt/vim-scala'
-" Formatters mostly for c++
-Plug 'Chiel92/vim-autoformat'
-
 
 ""Vinegar
 Plug 'dhruvasagar/vim-vinegar'
@@ -221,14 +199,6 @@ noremap <Leader>u : GundoToggle<CR>
 
 nnoremap <tab> za
 
-"add camelcase functionality
-"make sth to toggle this...
-nnoremap <leader>w <Plug>CamelCaseMotion_w
-nnoremap <leader>b <Plug>CamelCaseMotion_b
-nnoremap <leader>e <Plug>CamelCaseMotion_e
-"sunmap w
-"sunmap b
-"sunmap e
 
 "Tagbar
 nnoremap <Leader>v : TagbarToggle<CR>
@@ -247,21 +217,17 @@ nnoremap <leader>t :FuzzyOpen<cr>
 nnoremap <leader>g : Gstatus<CR>
 "Utl
 nnoremap <leader>o : Utl ol<CR>
-"Maven
-nmap <F5> :Mvn clean install<CR>
-nmap <F6> :Mvn clean package<CR>
+
 "go to vimrc
 nnoremap <leader>. :e $MYVIMRC<CR>
 
-"go to vimrc
-nnoremap <leader>e :Errors<CR>
-
 "go to next error
 nnoremap <leader>l :lnext<CR>
-"check spelling and grammar from after the deadline
-vnoremap <leader>a :call Atd()<CR>
 "make a file writable
 nnoremap <leader>w :set modifiable<CR>: set buftype=<CR>
+
+"fix
+nnoremap <leader>f :ALEFix<CR> :w <CR>
 
 "vim to use the global python instead of the virtuanenv
 "let g:python_host_prog='/usr/bin/python3'
@@ -273,20 +239,11 @@ let g:UltiSnipsSnippetsDir="~/dotfiles/_vim/ultisnippets/"
 let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
 let g:UltiSnipsJumpForwardTrigger= "<up>"
 let g:UltiSnipsJumpBackwardTrigger="<down>"
+
 "Neocomplete
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-  "return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  "" For no inserting <CR> key.
-  ""return pumvisible() ? "\<C-y>" : "\<CR>"
-"endfunction
 
 function! ExpandSnippetOrJumpForwardOrReturnTab()
     let snippet = UltiSnips#ExpandSnippetOrJump()
@@ -326,29 +283,6 @@ inoremap <expr><TAB>
 
 inoremap <silent> <CR> <C-r>=<SID>ExpandSnippetOrReturnEmptyString()<CR>
 
-
-" <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-        let g:neocomplete#sources#omni#input_patterns = {}
-endif
-
-"let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-"let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-"let g:SuperTabContextDiscoverDiscovery =
-"\ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
-
-let g:SuperTabDefaultCompletionType = "context"
-let g:EasyMotion_leader_key='<Space>'
-set wildignore=*.class,*.dat,*/public/*,*/ansible/*
-
 "abbs!
 abb trail trial
 abb inteface interface
@@ -356,39 +290,16 @@ abb inteface interface
 " to save always when the focus is lost
 au FocusLost * silent! wa
 
-let g:EclimCompletionMethod = 'omnifunc'
-augroup filetype_java
-        au!
-        ""eclim maps
-        au FileType java nnoremap <buffer> <Leader>m :JavaImport<CR>
-        au FileType java nnoremap <buffer> <Leader>i :JavaImportOrganize<CR>
-        au FileType java nnoremap <buffer> <Leader>G :JavaGet<CR>
-        au FileType java nnoremap <buffer> <Leader>S :JavaSet<CR>
-        au FileType java nnoremap <buffer> <Leader>GS :JavaGetSet<CR>
-        au FileType java nnoremap <buffer> <Leader>co :JavaCorrect<CR>
-        au FileType java nnoremap <buffer> <Leader>j :MJUnit<CR>
-        au FileType java nnoremap <buffer> <Leader>jr :JUnitResult<CR>
-        au FileType java nnoremap <buffer> <Leader>jc :JUnitCreate<CR>
-        au FileType java nnoremap <buffer> <Leader>jd :JavaDocComment<CR>
-        "au BufWritePre *.java JavaFormat
-augroup END
-let g:EclimPythonValidate=0
 augroup filetype_go
         au!
         au FileType go nnoremap <buffer> <Leader>rt :call RunGotest()<CR>
         au FileType go nnoremap <buffer> <Leader>r :call RunGo()<CR>
         "au BufWritePre *.go Fmt
 augroup END
+
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap gd <Plug>(go-def)
 let g:go_fmt_command = "goimports"
-
-let g:syntastic_go_checkers = ['govet', 'go']
-"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-let g:go_list_type = "quickfix"
-
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
 
 
 
@@ -400,53 +311,12 @@ let g:go_highlight_build_constraints = 1
 "let g:go_auto_type_info = 1
 
 
-"dbext configuration
-let g:dbext_default_profile_ldb_paper= 'type=SQLITE:dbname=/home/javi/Dropbox/uni/src/python/results/ldb_sets/sets.db'
-let dbext_default_SQLITE_bin = 'sqlite3'
-
-let wiki_daisy = {}
-let wiki_daisy.path = '~/Dropbox/wiki/daisy'
-nnoremap <leader>wd :execute "normal <leader>ww"<cr>
-let wiki_phd= {}
-let wiki_phd.path = '~/Dropbox/wiki/phd'
-nnoremap <leader>wp :execute "normal 2<leader>ww"<cr>
-
-let g:vimwiki_list = [wiki_daisy, wiki_phd]
 "airplane conf
 let g:airline_powerline_fonts = 1
 "minibufexpl conflict with fugitive
 let g:miniBufExplorerMoreThanOne=2
 let g:miniBufExplMapCTabSwitchBufs = 1
-"google wiki
-au BufEnter *.wiki set ft=googlecodewiki
-au BufEnter *.wiki set spell
 
-"python-mode
-"pep8 is picky as hell
-"let g:pymode_lint_checker = 'pyflakes,mccabe'
-"syntastic is cool enough
-"let g:pymode_lint = 0
-"rope vim (inside pymode)
-let g:pymode_rope_autoimport_modules = []
-let g:ropevim_autoimport_modules = ["os","logging","unittest"]
-
-"beauty_matlab conf
-let g:beauty_matlab_greek=1
-
-"let g:syntastic_mode_map ={'mode': 'active',
-"\ 'active_filetypes': ['ruby', 'php'],
-"\ 'passive_filetypes': ['text'] }
-"let g:EclimCValidate=0
-"let g:ycm_register_as_syntastic_checker = 0 
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_check_on_open=1
-let g:syntastic_auto_loc_list=1
-
-let g:syntastic_loc_list_height=5
-"cool chars for errors
-let g:syntastic_enable_signs=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
 
 let g:ale_sign_error = '😡'
 let g:ale_sign_warning = '😤'
@@ -456,83 +326,24 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_open_list = 1
 let g:ale_keep_list_window_open = 0
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_save = 1
+let g:ale_linters = {"python": ['flake8', 'isort', 'mypy', 'pydocstyle']}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black', 'isort'],
+\}
+
+let g:ale_python_black_options = "-l 99"
 let g:ale_python_mypy_options = '--ignore-missing-imports'
+
 
 
 "use ag
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-"let g:syntastic_debug=1
-let g:syntastic_cpp_compiler = "g++"
-let g:syntastic_cpp_compiler_options = "-std=c++11 -Wall -Wextra -Wpedantic"
-"let g:syntastic_cpp_checkers = ["gcc"]
-"echom g:syntastic_cpp_checkers[0]
-"let g:syntastic_cpp_gcc_exec= "make"
-let g:ycm_global_ycm_extra_conf="~/.ycm_extra_conf.py"
-"matlab conceal
-au BufEnter *.m set conceallevel=2
-au BufEnter *.m set concealcursor=
-"to colapse classes
-au BufEnter *.m set foldlevel=3
 
-" START LATEX STUFF "
-" REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
-
-
-au BufEnter *.tex set spell
-
-" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
-" can be called correctly.
-set shellslash
-
-" IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-set grepprg=grep\ -nH\ $*
-
-" OPTIONAL: This enables automatic indentation as you type.
-filetype indent on
-
-" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
-" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" The following changes the default filetype back to 'tex':
-let g:tex_flavor='latex'
-
-let g:Tex_ViewRule_dvi='evince'
-let g:Tex_ViewRule_pdf='evince'
-
-let g:Tex_DefaultTargetFormat='pdf'
-let g:Tex_MultipleCompileFormats='pdf'
-" END LATEX STUFF "
-"
-"
 
 "Local vimrc
 let g:localvimrc_ask=0
-
-if !exists(':JUnitCreate')
-        command! JUnitCreate call CreateJUnit()
-endif
-
-if !exists(':MJUnit')
-        command! MJUnit call RunJUnit()
-endif
-""My functions
-fun! CreateJUnit()
-        let testFile=substitute(expand('%:p'),'\/src\/main','\/src\/test','')
-        let testFile=substitute(testFile,'\.java','Test.java','')
-        silent! exec ":!mkdir -p ". fnamemodify(testFile,':p:h:')
-        exec ":e ".testFile
-endf
-"matlab ctags tricks
-let g:tagbar_type_matlab= {
-                        \ 'ctagstype' : 'MatLab',
-                        \ 'kinds' : [
-                        \'c:classes',
-                        \'f:fields',
-                        \'m:methods',
-                        \'F:functions',
-                        \ ]
-                        \ }
 
 " gotags
 let g:tagbar_type_go = {
@@ -563,100 +374,33 @@ let g:tagbar_type_go = {
                         \ 'ctagsargs' : '-sort -silent'
                         \ }
 
-fun! RunJUnit()
-
-        let testFile=expand('%:t:r')
-        echom ":Mvn clean test -Dtest= ".testFile
-        exec ":Mvn! clean test -Dtest=".testFile
-endf
-
-fun! RunGotest()
-        cd %:h
-        exec ":!go test -v -covermode atomic"
-        cd-
-endf
-
-fun! RunGo()
-        cd %:h
-        exec ":!go run main.go"
-        cd-
-endf
-
-fun! GTest()
-        exec ":make! | GTestRun"
-endf
-
-fun! GTestUnder()
-        exec ":make! | GTestRunUnderCursor"
-endf
-fun! Atd()
-        exec ":'<,'>w !detex | atdtool -"
-endf
-
-let @f= '^[/\d^Mi_^[l4x$i_^[p'  
-
-"Ultisnips and ycm
-"function! g:UltiSnips_Complete()
-        "call UltiSnips#ExpandSnippet()
-        "if g:ulti_expand_res == 0
-                "if pumvisible()
-                        "return "\<C-n>"
-                "else
-                        "call UltiSnips#JumpForwards()
-                        "if g:ulti_jump_forwards_res == 0
-                                "return "\<TAB>"
-                        "endif
-                "endif
-        "endif
-        "return ""
-"endfunction
-
-" au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 let g:UltiSnipsJumpForwardTrigger="<NOP>"
 let g:UltiSnipsListSnippets="<c-e>"
-" this mapping Enter key to <C-y> to chose the current highlight item 
-" and close the selection list, same as other IDEs.
-" CONFLICT with some plugins like tpope/Endwise
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Handlebars as html
-au BufNewFile,BufRead *.handlebars set filetype=html
 
-"let g:autopep8_aggressive=1
-let g:autopep8_disable_show_diff=1
 augroup filetype_python
         au!
-        au FileType python nnoremap <buffer> <Leader>af :Pytest file verbose<CR>
-        au FileType python nnoremap <buffer> <Leader>ac :Pytest class verbose<CR>
-        au FileType python nnoremap <buffer> <Leader>am :Pytest method verbose<CR>
+        au FileType python nnoremap <buffer> <Leader>af :TestFile -strategy=vimux<CR>
+        au FileType python nnoremap <buffer> <Leader>an :TestNearest -strategy=vimux<CR>
 
-        au FileType python nnoremap <buffer> <Leader>at :Pytest function verbose<CR>
-
-        au BufNewFile,BufRead 
+        au BufNewFile,BufRead
                                 \ set tabstop=4
                                 \ set softtabstop=4
                                 \ set shiftwidth=4
-                                \ set textwidth=79
+                                \ set textwidth=99
                                 \ set expandtab
                                 \ set autoindent
                                 \ set fileformat=unix
-        "au BufWritePost *.py :Autopep8 
-        "au BufWritePost *.py :SyntasticReset
 
-                
+
         au FileType python nnoremap <buffer> <Leader>r :!python % <CR>
-        "au FileType python setlocal formatprg=autopep8\ -
-        "au BufWritePre *.py Autoformat
 augroup END
 
-"python with virtualenv support
-"py << EOF
-"import os
-"import sys
-"if 'VIRTUAL_ENV' in os.environ:
-        "project_base_dir = os.environ['VIRTUAL_ENV']
-        "activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-        "execfile(activate_this, dict(__file__=activate_this))
-"EOF
+
+""" Testing python
+let test#python#runner = 'pytest'
+let test#python#pytest#executable = 'pipenv run pytest'
+
+
 " autoformat c family
 let g:formatters_cpp = ['clangformat']
 let g:formatdef_clangformat = '"clang-format"'
@@ -669,8 +413,11 @@ augroup filetype_cpp
         "au BufWritePre *.go Fmt
 augroup END
 
-au BufRead,BufNewFile *.ino set filetype=arduino 
+au BufRead,BufNewFile *.ino set filetype=arduino
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+""" Terraform
+let g:terraform_fmt_on_save=1

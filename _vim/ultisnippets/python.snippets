@@ -50,6 +50,15 @@ def ${1:name}(${2:self}):
 	$0
 endsnippet
 
+snippet param "parametrize"
+@pytest.mark.parametrize(
+	"${1:args}",
+	[]
+)
+def ${2:name}($1):
+	$0
+endsnippet
+
 snippet patch "mock patch"
 @mock.patch($0)
 endsnippet

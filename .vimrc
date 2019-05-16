@@ -71,11 +71,15 @@ Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'vim-scripts/indentpython.vim'
 
+Plug 'jeetsukumaran/vim-pythonsense'
+
 Plug 'janko-m/vim-test'
 
 Plug 'hashivim/vim-terraform'
 
 Plug 'benmills/vimux'
+
+Plug 'embear/vim-localvimrc'
 
 
 if executable('pyls')
@@ -89,13 +93,13 @@ endif
 
 Plug 'kien/rainbow_parentheses.vim'
 
-"Plug 'Valloric/YouCompleteMe'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/neoinclude.vim'
   Plug 'Shougo/neco-syntax'
   Plug 'zchee/deoplete-jedi', { 'for': 'python'  }
   Plug 'zchee/deoplete-go', { 'do': 'make' }
+  Plug 'fszymanski/deoplete-emoji'
 
 else
   Plug 'Shougo/deoplete.nvim'
@@ -327,14 +331,20 @@ let g:ale_open_list = 1
 let g:ale_keep_list_window_open = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
-let g:ale_linters = {"python": ['flake8', 'isort', 'mypy', 'pydocstyle']}
+let g:ale_fix_on_save = 0
+let g:ale_linters = {"python": ['flake8', 'mypy']}
+"let g:ale_linters = {"python": ['flake8', 'pydocstyle', 'mypy']}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['black', 'isort'],
+\   'yaml': ['prettier'],
 \}
 
 let g:ale_python_black_options = "-l 99"
 let g:ale_python_mypy_options = '--ignore-missing-imports'
+
+nmap <silent> <C-s> <Plug>(ale_previous_wrap)
+nmap <silent> <C-d> <Plug>(ale_next_wrap)
 
 
 
@@ -421,3 +431,8 @@ au Syntax * RainbowParenthesesLoadBraces
 
 """ Terraform
 let g:terraform_fmt_on_save=1
+
+
+"""emojis
+call deoplete#custom#source('emoji', 'filetypes', ['rst','gitcommit','markdown','python','sh','go'])
+call deoplete#custom#source('emoji', 'converters', ['converter_emoji'])

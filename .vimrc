@@ -98,7 +98,7 @@ if has('nvim')
   Plug 'Shougo/neoinclude.vim'
   Plug 'Shougo/neco-syntax'
   Plug 'zchee/deoplete-jedi', { 'for': 'python'  }
-  Plug 'zchee/deoplete-go', { 'do': 'make' }
+  " Plug 'zchee/deoplete-go', { 'do': 'make' }
   Plug 'fszymanski/deoplete-emoji'
 
 else
@@ -123,6 +123,16 @@ Plug 'roxma/vim-paste-easy'
 Plug 'Quramy/tsuquyomi'
 
 Plug 'ryanoasis/vim-devicons'
+
+" more separators for i and a
+Plug 'wellle/targets.vim'
+
+"Jupyter
+" Plug 'szymonmaszke/vimpyter'
+
+Plug 'c9s/helper.vim'
+Plug 'c9s/treemenu.vim'
+Plug 'c9s/vikube.vim'
 
 call plug#end()
 
@@ -226,12 +236,14 @@ nnoremap <leader>o : Utl ol<CR>
 nnoremap <leader>. :e $MYVIMRC<CR>
 
 "go to next error
-nnoremap <leader>l :lnext<CR>
+nnoremap <leader>m :lnext<CR>
 "make a file writable
 nnoremap <leader>w :set modifiable<CR>: set buftype=<CR>
 
 "fix
 nnoremap <leader>f :ALEFix<CR> :w <CR>
+
+
 
 "vim to use the global python instead of the virtuanenv
 "let g:python_host_prog='/usr/bin/python3'
@@ -241,38 +253,40 @@ let g:tagbar_autoclose=1
 "Ultisnippets
 let g:UltiSnipsSnippetsDir="~/dotfiles/_vim/ultisnippets/"
 let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
-let g:UltiSnipsJumpForwardTrigger= "<up>"
-let g:UltiSnipsJumpBackwardTrigger="<down>"
+let g:UltiSnipsJumpForwardTrigger= "<right>"
+let g:UltiSnipsJumpBackwardTrigger="<left>"
 
 "Neocomplete
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 
 
-function! ExpandSnippetOrJumpForwardOrReturnTab()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return "\<TAB>"
-    endif
-endfunction
+"function! ExpandSnippetOrJumpForwardOrReturnTab()
+    "let snippet = UltiSnips#ExpandSnippetOrJump()
+    "if g:ulti_expand_or_jump_res > 0
+        "return snippet
+    "else
+        "return "\<TAB>"
+    "endif
+"endfunction
 
-function! s:ExpandSnippetOrReturnEmptyString()
-    if pumvisible()
-        let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return "\<C-y>\<CR>"
-    endif
-    else
-        return "\<CR>"
-endfunction
+"function! s:ExpandSnippetOrReturnEmptyString()
+    "if pumvisible()
+        "let snippet = UltiSnips#ExpandSnippetOrJump()
+    "if g:ulti_expand_or_jump_res > 0
+        "return snippet
+    "else
+        "return "\<C-y>\<CR>"
+    "endif
+    "else
+        "return "\<CR>"
+"endfunction
 
-inoremap <expr><TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ "<C-R>=ExpandSnippetOrJumpForwardOrReturnTab()<CR>"
+"inoremap <expr><TAB>
+    "\ pumvisible() ? "\<C-n>" :
+    "\ "<C-R>=ExpandSnippetOrJumpForwardOrReturnTab()<CR>"
+    "
+
 " snoremap <TAB> {{{1
 " jump to next placeholder otherwise do nothing
 "snoremap <buffer> <silent> <TAB>
@@ -285,7 +299,7 @@ inoremap <expr><TAB>
 "snoremap <buffer> <silent> <S-TAB>
     "\ <ESC>:call UltiSnips#JumpBackwards()<CR>
 
-inoremap <silent> <CR> <C-r>=<SID>ExpandSnippetOrReturnEmptyString()<CR>
+"inoremap <silent> <CR> <C-r>=<SID>ExpandSnippetOrReturnEmptyString()<CR>
 
 "abbs!
 abb trail trial
@@ -294,8 +308,13 @@ abb inteface interface
 " to save always when the focus is lost
 au FocusLost * silent! wa
 
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%100v', 100)
+
 augroup filetype_go
         au!
+        au FileType go nnoremap <buffer> <Leader>af :TestFile -strategy=vimux<CR>
+        au FileType go nnoremap <buffer> <Leader>an :TestNearest -strategy=vimux<CR>
         au FileType go nnoremap <buffer> <Leader>rt :call RunGotest()<CR>
         au FileType go nnoremap <buffer> <Leader>r :call RunGo()<CR>
         "au BufWritePre *.go Fmt
@@ -303,7 +322,16 @@ augroup END
 
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap gd <Plug>(go-def)
+
 let g:go_fmt_command = "goimports"
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
 
 
 
@@ -312,6 +340,7 @@ let g:go_highlight_functions = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_auto_sameids = 1
 "let g:go_auto_type_info = 1
 
 
@@ -332,12 +361,18 @@ let g:ale_keep_list_window_open = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 0
-let g:ale_linters = {"python": ['flake8', 'mypy']}
-"let g:ale_linters = {"python": ['flake8', 'pydocstyle', 'mypy']}
+let g:ale_linters = {
+\   'python': ['flake8', 'mypy'],
+\   'go': ['bingo', 'gobuild', 'gofmt', 'golint', 'gometalinter', 'gopls', 'gosimple',
+\   'gotype', 'govet', 'golangserver', 'staticcheck'] }
+
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['black', 'isort'],
 \   'yaml': ['prettier'],
+\   'javascript': ['prettier'],
+\   'go': ['gofmt', 'goimports'],
+\   'sql': ['pgformatter'],
 \}
 
 let g:ale_python_black_options = "-l 99"
@@ -384,8 +419,6 @@ let g:tagbar_type_go = {
                         \ 'ctagsargs' : '-sort -silent'
                         \ }
 
-let g:UltiSnipsJumpForwardTrigger="<NOP>"
-let g:UltiSnipsListSnippets="<c-e>"
 
 augroup filetype_python
         au!
@@ -436,3 +469,44 @@ let g:terraform_fmt_on_save=1
 """emojis
 call deoplete#custom#source('emoji', 'filetypes', ['rst','gitcommit','markdown','python','sh','go'])
 call deoplete#custom#source('emoji', 'converters', ['converter_emoji'])
+
+""" rg
+" Use rg for the :grep program (as it's faster than ag)
+"   * use "-t html" to only search one filetype
+"   * use "-w" to match on word boundaries
+if executable('rg')
+    set grepprg=rg\ --vimgrep
+    set grepformat=%f:%l:%c:%m
+endif
+
+" Search codebase for word under cursor (v useful)
+nnoremap gw :grep <cword> . <CR>
+
+" Import
+nnoremap <leader>i mx"9yiwggoimport <esc>"9p'x
+
+"" snoop and desnoop
+nnoremap <leader>d :call Snoop()<cr>
+nnoremap <leader>dd :call Desnoop()<cr>
+
+function! Snoop()
+    """ add mark to come back
+    normal mx
+    """ Go to start of function and add the decorator
+    normal [mO@snoop
+
+    """ Go to the start and import snoop
+    normal ggO
+    call append(line('.'), 'import snoop')
+    """ go back to the mark
+    normal 'x
+    """ Write to apply autoformat
+    normal w
+endfunction
+
+function! Desnoop()
+    normal mx
+    execute "g/snoop/d"
+    normal 'x
+    normal w
+endfunction

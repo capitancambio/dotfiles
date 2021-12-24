@@ -81,6 +81,10 @@ snippet pf "print debug"
 print("${1}", $1)
 endsnippet
 
+snippet skip
+@pytest.mark.skip($1)
+endsnippet
 
-
-	
+snippet den  "dict entry"
+"${1}":$1,
+endsnippet
